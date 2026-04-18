@@ -1,0 +1,21 @@
+[user]
+	name = Fábio Fernandes
+	email = fabio.fernandes@hypnotic.pt
+
+[core]
+	sshCommand = ssh -i ~/.ssh/work -F /dev/null
+
+[includeIf "gitdir:~/Development/personal/"]
+	path = ~/.gitconfig-personal
+
+[includeIf "gitdir:~/Development/enterprise/"]
+	path = ~/.gitconfig-work
+
+[credential]
+	helper = osxkeychain
+
+[init]
+	defaultBranch = main
+
+[pull]
+	rebase = false

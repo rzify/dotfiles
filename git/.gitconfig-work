@@ -1,0 +1,6 @@
+[user]
+	name = Fábio Fernandes
+	email = fabio.fernandes@hypnotic.pt
+
+[core]
+	sshCommand = ssh -i ~/.ssh/work -F /dev/null

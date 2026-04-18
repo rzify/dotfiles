@@ -1,0 +1,6 @@
+[user]
+	name = Fábio Fernandes
+	email = github@rzlabs.me
+
+[core]
+	sshCommand = ssh -i ~/.ssh/personal -F /dev/null
