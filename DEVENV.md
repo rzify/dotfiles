@@ -33,9 +33,9 @@ and tooling — no `~/Projects` reinvention). One tree **per identity**:
 ├── enterprise/        # identity: fabio.fernandes@hypnotic.pt   key: work
 │   └── <client/product repos>
 ├── obraxray/          # identity: obraxray@gmail.com   key: obra
-│   ├── obra-segura          (ObraXRAY product; has a linked worktree)
-│   ├── obra-segura-ghabump   git worktree of obra-segura
-│   ├── obraxray-hq
+│   ├── app/                  public SaaS product (Next.js+Express+SDK; was obra-segura)
+│   ├── app-ghabump/          git worktree of app
+│   ├── hq/                   internal ops app (was obraxray-hq)
 │   ├── experiments/
 │   └── archive/
 ├── claude-context/    # auto-injected CLAUDE rules (walked by SessionStart hook)
@@ -176,8 +176,9 @@ New machine: `git clone … && ./install.sh && brew bundle` → identical setup.
 ## I. Migration — done vs. your remaining manual steps
 
 **Applied automatically:**
-- Created `~/Development/obraxray/` and moved `obra-segura` (+ its worktree,
-  repaired) and `obraxray-hq` into it; re-pointed remotes to `github-obra`.
+- Created `~/Development/obraxray/`, moved + renamed the repos: `obra-segura`→`app`
+  (+ its worktree `app-ghabump`, repaired) and `obraxray-hq`→`hq`; re-pointed
+  remotes to `github-obra` (remote slugs unchanged: ObraXRAY.git, obraxray-hq.git).
 - Rewrote 612 stale absolute-path references inside the moved repos.
 - Rewrote base + per-context gitconfig, added obra context, signing,
   `allowed_signers`, and a clean ssh config. Committed to dotfiles (signed).
@@ -187,12 +188,9 @@ New machine: `git clone … && ./install.sh && brew bundle` → identical setup.
    - `~/.ssh/personal.pub` → GitHub `rzify` + GitLab
    - `~/.ssh/obra.pub` → GitHub `obraxray`
    - `~/.ssh/work.pub` → GitLab (+ GitHub if work commits land there)
-2. `obra-segura` has ~62 changed tracked files from the path rewrite on the
-   WIP branch `fix/director-queue-server-only-crash` — review and commit as
-   `chore: fix absolute paths after repo move`, or stash.
-3. Verify `rzlabs` GitLab push once (`git -C ~/Development/personal/rzlabs push`)
+2. Verify `rzlabs` GitLab push once (`git -C ~/Development/personal/rzlabs push`)
    — auth was confirmed but GitLab was throttling test probes.
-4. Re-accept the Claude Code trust dialog when you open the moved repos at their
+3. Re-accept the Claude Code trust dialog when you open the moved repos at their
    new paths (old `~/.claude.json` project entries were left untouched on
    purpose; historical transcripts are immutable history).
 
