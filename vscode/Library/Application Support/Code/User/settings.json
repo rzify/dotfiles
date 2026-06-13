@@ -1,0 +1,243 @@
+{
+  // ── Workbench ──────────────────────────────────────────────────────────────
+  "workbench.sideBar.location": "right",
+  "workbench.activityBar.location": "hidden",
+  "workbench.colorTheme": "Vesper",
+  "workbench.preferredDarkColorTheme": "Vesper",
+  "workbench.preferredLightColorTheme": "Default Light Modern",
+  "workbench.iconTheme": "symbols",
+  "workbench.productIconTheme": "Default",
+  "workbench.tree.indent": 10,
+  "workbench.tree.renderIndentGuides": "none",
+  "workbench.tree.expandMode": "singleClick",
+  "workbench.list.smoothScrolling": true,
+  "workbench.editor.tabSizing": "shrink",
+  "workbench.editor.limit.enabled": true,
+  "workbench.editor.limit.value": 8,
+  "workbench.editor.closeOnFileDelete": true,
+  "workbench.startupEditor": "none",
+  "workbench.view.alwaysShowHeaderActions": false,
+  "workbench.layoutControl.enabled": false,
+  "workbench.statusBar.visible": true,
+  "window.titleBarStyle": "custom",
+  "window.commandCenter": false,
+  "window.density.editorTabHeight": "compact",
+
+  // ── Fonte ──────────────────────────────────────────────────────────────────
+  "editor.fontFamily": "'JetBrains Mono', 'Geist Mono', 'SF Mono', Menlo, monospace",
+  "editor.fontSize": 13,
+  "editor.lineHeight": 1.75,
+  "editor.letterSpacing": 0.3,
+  "editor.fontLigatures": true,
+  "editor.fontWeight": "400",
+  "terminal.integrated.fontFamily": "'JetBrains Mono', 'Geist Mono', monospace",
+  "terminal.integrated.fontSize": 12.5,
+  "terminal.integrated.lineHeight": 1.3,
+
+  // ── Editor ─────────────────────────────────────────────────────────────────
+  "editor.cursorBlinking": "smooth",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.smoothScrolling": true,
+  "editor.renderWhitespace": "boundary",
+  "editor.renderLineHighlight": "none",
+  "editor.guides.indentation": false,
+  "editor.bracketPairColorization.enabled": false,
+  "editor.minimap.enabled": false,
+  "editor.stickyScroll.enabled": true,
+  "editor.stickyScroll.maxLineCount": 4,
+  "editor.linkedEditing": true,
+  "editor.tabSize": 2,
+  "editor.detectIndentation": true,
+  "editor.wordWrap": "off",
+  "editor.suggestSelection": "first",
+  "editor.suggest.insertMode": "replace",
+  "editor.suggest.localityBonus": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.padding.top": 12,
+  "editor.padding.bottom": 12,
+  "editor.scrollbar.verticalScrollbarSize": 8,
+  "editor.scrollbar.horizontalScrollbarSize": 8,
+  "editor.overviewRulerBorder": false,
+  "editor.hideCursorInOverviewRuler": true,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.occurrencesHighlight": "multiFile",
+
+  // ── Formatação e save ──────────────────────────────────────────────────────
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "never"
+  },
+  "files.autoSave": "onFocusChange",
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.eol": "\n",
+
+  // ── Linguagens ─────────────────────────────────────────────────────────────
+  "[typescript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[typescriptreact]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[javascript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[javascriptreact]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[json]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[jsonc]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[css]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[markdown]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[prisma]": { "editor.defaultFormatter": "Prisma.prisma" },
+
+  // ── TypeScript ─────────────────────────────────────────────────────────────
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.preferences.preferTypeOnlyAutoImports": true,
+  "typescript.preferences.useAliasesForRenames": false,
+  "typescript.suggest.autoImports": true,
+  "typescript.inlayHints.parameterNames.enabled": "literals",
+  "typescript.inlayHints.variableTypes.enabled": false,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+
+  // ── Tailwind ───────────────────────────────────────────────────────────────
+  "tailwindCSS.experimental.classRegex": [
+    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+    ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
+    ["cn\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
+  ],
+  "tailwindCSS.classAttributes": ["class", "className", "ngClass", "class:list"],
+  "editor.quickSuggestions": { "strings": "on" },
+
+  // ── ESLint ─────────────────────────────────────────────────────────────────
+  "eslint.run": "onSave",
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "eslint.problems.shortenToSingleLine": true,
+
+  // ── Error Lens ─────────────────────────────────────────────────────────────
+  "errorLens.enabledDiagnosticLevels": ["error", "warning"],
+  "errorLens.fontStyleItalic": true,
+  "errorLens.gutterIconsEnabled": true,
+  "errorLens.delay": 300,
+
+  // ── Git & GitLens ──────────────────────────────────────────────────────────
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "git.openRepositoryInParentFolders": "always",
+  "git.decorations.enabled": true,
+  "gitlens.currentLine.enabled": false,
+  "gitlens.hovers.currentLine.over": "line",
+  "gitlens.codeLens.enabled": false,
+  "gitlens.blame.heatmap.enabled": false,
+  "scm.diffDecorationsGutterWidth": 2,
+
+  // ── Terminal ───────────────────────────────────────────────────────────────
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.smoothScrolling": true,
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.persistentSessionReviveProcess": "never",
+  "terminal.integrated.tabs.enabled": true,
+
+  // ── Explorer ───────────────────────────────────────────────────────────────
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "explorer.compactFolders": false,
+  "explorer.decorations.badges": false,
+  "explorer.decorations.colors": true,
+  "explorer.openEditors.visible": 0,
+  "explorer.fileNesting.enabled": true,
+  "outline.icons": false,
+  "outline.showVariables": false,
+  "outline.problems.badges": false,
+  "outline.problems.colors": false,
+  "problems.decorations.enabled": false,
+  "scm.countBadge": "off",
+  "scm.providerCountBadge": "hidden",
+  "explorer.fileNesting.patterns": {
+    "*.ts": "${capture}.test.ts, ${capture}.spec.ts, ${capture}.d.ts",
+    "*.tsx": "${capture}.test.tsx, ${capture}.stories.tsx",
+    "next.config.*": "next-env.d.ts, tsconfig*.json, .eslintrc*, .prettierrc*, postcss.config.*",
+    "package.json": "pnpm-lock.yaml, package-lock.json, yarn.lock, .npmrc, .nvmrc"
+  },
+
+  // ── Misc ───────────────────────────────────────────────────────────────────
+  "breadcrumbs.enabled": true,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "todo-tree.general.tags": ["TODO", "FIXME", "HACK", "NOTE", "BUG"],
+  "cSpell.language": "en,pt,pt_PT",
+  "npm.packageManager": "pnpm",
+  "telemetry.telemetryLevel": "off",
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.next": true,
+    "**/dist": true,
+    "**/pnpm-lock.yaml": true,
+    "**/.git": true
+  },
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/.next/**": true,
+    "**/dist/**": true,
+    "**/.git/**": true
+  },
+  "console-ninja.featureSet": "Community",
+
+  // ── Vesper chrome lock ────────────────────────────────────────────────────
+  // Pulls workbench chrome onto the shared Vesper tokens so VSCode matches
+  // WezTerm exactly. Palette reference: dotfiles/assets/vesper-palette.md
+  // (amber #ffc799 = the single accent; #101010 = base; status bar stays
+  //  neutral so the Kickbacks extension can't repaint it purple.)
+  "workbench.colorCustomizations": {
+    "[Vesper]": {
+      // Base surfaces
+      "editor.background": "#101010",
+      "sideBar.background": "#101010",
+      "sideBar.foreground": "#e0e0e0",
+      "sideBar.border": "#1f1f1f",
+      "sideBarSectionHeader.background": "#101010",
+      "sideBarSectionHeader.border": "#1f1f1f",
+      "activityBar.background": "#101010",
+      "activityBar.border": "#1f1f1f",
+      "panel.background": "#101010",
+      "panel.border": "#1f1f1f",
+      "terminal.background": "#101010",
+
+      // Title bar
+      "titleBar.activeBackground": "#101010",
+      "titleBar.activeForeground": "#e0e0e0",
+      "titleBar.inactiveBackground": "#101010",
+      "titleBar.inactiveForeground": "#8b8b8b",
+      "titleBar.border": "#1f1f1f",
+
+      // Tabs — amber marks the active tab, everything else recedes
+      "editorGroupHeader.tabsBackground": "#101010",
+      "editorGroupHeader.border": "#1f1f1f",
+      "tab.activeBackground": "#161616",
+      "tab.activeForeground": "#ffc799",
+      "tab.activeBorderTop": "#ffc799",
+      "tab.activeBorder": "#161616",
+      "tab.inactiveBackground": "#101010",
+      "tab.inactiveForeground": "#535353",
+      "tab.hoverBackground": "#161616",
+      "tab.border": "#101010",
+
+      // The single accent — focus rings, active selection
+      "focusBorder": "#ffc799",
+      "list.activeSelectionBackground": "#2a2a2a",
+      "list.activeSelectionForeground": "#ffffff",
+      "list.inactiveSelectionBackground": "#1f1f1f",
+      "list.hoverBackground": "#161616",
+      "list.highlightForeground": "#ffc799",
+
+      // Status bar — neutral, never purple
+      "statusBar.background": "#101010",
+      "statusBar.noFolderBackground": "#101010",
+      "statusBar.debuggingBackground": "#101010",
+      "statusBar.foreground": "#8b8b8b",
+      "statusBar.border": "#1f1f1f",
+      "statusBarItem.remoteBackground": "#101010",
+      "statusBarItem.remoteForeground": "#8b8b8b",
+      "statusBarItem.hoverBackground": "#2a2a2a",
+      "statusBarItem.prominentBackground": "#101010",
+      "statusBarItem.prominentHoverBackground": "#2a2a2a"
+    }
+  }
+}
