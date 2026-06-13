@@ -1,6 +1,5 @@
 [user]
-	name = Fábio Fernandes
 	email = fabio.fernandes@hypnotic.pt
-
+	signingkey = ~/.ssh/work.pub
 [core]
-	sshCommand = ssh -i ~/.ssh/work -F /dev/null
+	sshCommand = ssh -i ~/.ssh/work -o IdentitiesOnly=yes

@@ -1,6 +1,7 @@
 [user]
-	name = Fábio Fernandes
 	email = github@rzlabs.me
-
+	signingkey = ~/.ssh/personal.pub
 [core]
-	sshCommand = ssh -i ~/.ssh/personal -F /dev/null
+	# Force the personal key for every push from this tree, regardless
+	# of remote URL. -o IdentitiesOnly=yes => only this key is offered.
+	sshCommand = ssh -i ~/.ssh/personal -o IdentitiesOnly=yes

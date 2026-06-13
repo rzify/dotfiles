@@ -1,0 +1,5 @@
+# Maps email -> public key so `git log --show-signature` can verify
+# locally. Public keys only; safe to commit.
+github@rzlabs.me ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJUpGbNbWv0FHSUms68lsRz6WWGRJYIpPfDqJYEKq8JB github@rzlabs.me
+fabio.fernandes@hypnotic.pt ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOI0IrwADvy0tSXSQJ5pCAmibV93dd+uL5enZYHcITlC fabio.fernandes@hypnotic.pt
+obraxray@gmail.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGAbCrHXwE1M/+nF84YdgO2nvGeKC64PeHj8GngRfEQu obraxray@gmail.com

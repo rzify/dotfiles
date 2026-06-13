@@ -1,21 +1,48 @@
 [user]
 	name = Fábio Fernandes
-	email = fabio.fernandes@hypnotic.pt
+	# No email here on purpose. Identity is set per-context by the
+	# includeIf rules below. useConfigOnly makes git REFUSE to commit
+	# with a guessed identity — you must be inside a known context dir.
+	useConfigOnly = true
 
-[core]
-	sshCommand = ssh -i ~/.ssh/work -F /dev/null
-
+# ── Identity isolation by directory ───────────────────────────────
+# Whichever tree the repo lives in decides email, signing key, and
+# the SSH key used to push. Impossible to cross identities.
 [includeIf "gitdir:~/Development/personal/"]
 	path = ~/.gitconfig-personal
 
 [includeIf "gitdir:~/Development/enterprise/"]
 	path = ~/.gitconfig-work
 
-[credential]
-	helper = osxkeychain
+[includeIf "gitdir:~/Development/obraxray/"]
+	path = ~/.gitconfig-obra
 
+# ── Commit signing (SSH) ──────────────────────────────────────────
+# Every commit/tag is signed. The signing key itself is set per
+# context (so personal commits sign with the personal key, etc.).
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	allowedSignersFile = ~/.config/git/allowed_signers
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true
+
+# ── Sensible defaults ─────────────────────────────────────────────
 [init]
 	defaultBranch = main
-
 [pull]
 	rebase = false
+[push]
+	autoSetupRemote = true
+[fetch]
+	prune = true
+[credential]
+	helper = osxkeychain
+[core]
+	excludesfile = ~/.config/git/ignore
+[diff]
+	colorMoved = default
+[rerere]
+	enabled = true

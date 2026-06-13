@@ -1,0 +1,7 @@
+[user]
+	# ObraXRAY brand identity (matches what the repos already used).
+	name = ObraXRAY
+	email = obraxray@gmail.com
+	signingkey = ~/.ssh/obra.pub
+[core]
+	sshCommand = ssh -i ~/.ssh/obra -o IdentitiesOnly=yes
