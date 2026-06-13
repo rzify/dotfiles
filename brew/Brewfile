@@ -1,35 +1,128 @@
+# rz — machine manifest. Rebuild a fresh Mac with: brew bundle --file=brew/Brewfile
+# Keep in sync after install/uninstall: brew bundle dump --file=brew/Brewfile --force --describe
+
+# ── Taps ──────────────────────────────────────────────────────────────────────
 tap "anomalyco/tap"
+tap "oven-sh/bun"
 tap "stripe/stripe-cli"
-brew "copilot"
-brew "docker"
-brew "docker-compose"
-brew "fzf"
-brew "gh"
+tap "supabase/tap"
+
+# ── CLI core ──────────────────────────────────────────────────────────────────
+brew "atuin"                 # shell history, searchable
+brew "bat"                   # cat with syntax highlighting
+brew "coreutils"
+brew "direnv"                # per-dir env via .envrc
+brew "eza"                   # modern ls
+brew "fd"                    # modern find
+brew "fzf"                   # fuzzy finder
 brew "git"
-brew "mysql", restart_service: :changed
-brew "nmap"
-brew "node"
-brew "nvm"
-brew "pnpm"
-brew "powerlevel10k"
-brew "python@3.10"
-brew "sshpass"
-brew "starship"
-brew "stow"
-brew "uv"
-brew "vercel-cli"
-brew "yarn"
+brew "git-delta"             # pretty git diffs
+brew "gh"                    # GitHub CLI
+brew "just"                  # project command runner
+brew "ripgrep"               # rg — explicit leaf; don't let autoremove eat it
+brew "starship"              # prompt
+brew "stow"                  # dotfiles symlink manager
+brew "zoxide"                # smarter cd
 brew "zsh-autosuggestions"
 brew "zsh-completions"
 brew "zsh-history-substring-search"
 brew "zsh-syntax-highlighting"
-brew "anomalyco/tap/opencode"
+
+# ── Languages / runtimes / package managers ────────────────────────────────────
+brew "node"                  # required by vercel-cli; nvm's active version still wins on PATH
+brew "nvm"
+brew "oven-sh/bun/bun"       # explicit tap path — dump skips it under tap-trust
+brew "pnpm"
+brew "yarn"
+brew "python@3.14"
+brew "pipx"
+brew "uv"                    # fast Python installer
+brew "php"
+brew "composer"
+
+# ── Databases ───────────────────────────────────────────────────────────────────
+brew "postgresql@16", link: true
+brew "libpq"
+brew "mysql"                 # installed but NOT auto-started (no restart_service flag — intentional)
+
+# ── Dev tooling / cloud ───────────────────────────────────────────────────────────
+brew "docker"
+brew "docker-compose"
+brew "vercel-cli"
+brew "wp-cli"
 brew "stripe/stripe-cli/stripe"
-cask "bitwarden"
-cask "bruno"
+brew "supabase/tap/supabase"
+brew "nmap"
+brew "sshpass"
+brew "copilot"               # AWS Copilot (ECS/Fargate)
+brew "anomalyco/tap/opencode"
+
+# ── Media / misc libs ──────────────────────────────────────────────────────────
+brew "ffmpeg"
+brew "fileicon"
+brew "librsvg"
+brew "poppler"
+
+# ── GUI apps (cask) ──────────────────────────────────────────────────────────────
+cask "wezterm"               # terminal
+cask "visual-studio-code"    # editor
+cask "rectangle"             # window snapping (chosen over AeroSpace tiling)
+cask "raycast"               # launcher / clipboard (Cmd+Shift+M) / window / AI
+cask "karabiner-elements"    # keyboard remap
+cask "alt-tab"               # window switcher
+cask "bruno"                 # API client (replaced Postman)
+cask "tableplus"             # DB GUI (replaced pgAdmin)
 cask "claude-code"
 cask "docker-desktop"
-cask "maccy"
-cask "ngrok"
-cask "tableplus"
+cask "bitwarden"             # password manager (you also run 1Password)
+cask "1password"
+cask "obsidian"              # personal KB
+cask "notion"                # team docs (auto-start disabled)
+cask "figma"
+cask "fork"                  # git GUI
+cask "google-chrome"         # DevTools browser
+cask "slack"
+cask "whatsapp"
+cask "anydesk"               # remote desktop
+cask "ngrok"                 # public tunnels
+cask "tailscale-app"         # mesh VPN
+cask "local"                 # WordPress local dev
+cask "pictogram"             # custom app-icon tool
 cask "ytmdesktop-youtube-music"
+
+# ── Fonts ─────────────────────────────────────────────────────────────────────────
+cask "font-geist-mono"
+cask "font-jetbrains-mono-nerd-font"
+
+# ── Recommended, not yet installed — uncomment to adopt ─────────────────────────────
+# cask "jordanbaird-ice"     # free menu-bar manager (declutter)
+# cask "stats"               # monochrome menu-bar system monitor
+# cask "zen-browser"         # minimal Firefox-based daily driver
+# brew "btop"                # terminal system monitor
+# brew "mas"                 # Mac App Store CLI (for the `up` upgrade alias)
+# brew "pgcli"               # postgres REPL w/ autocomplete
+# brew "mycli"               # mysql REPL w/ autocomplete
+# brew "llm"                 # scriptable LLM in the terminal (simonw)
+
+# ── VS Code extensions ──────────────────────────────────────────────────────────────
+vscode "anotherglitchinthematrix.monochrome"
+vscode "ovcharovcoder.vespera-theme"
+vscode "anthropic.claude-code"
+vscode "bradlc.vscode-tailwindcss"
+vscode "christian-kohler.path-intellisense"
+vscode "dbaeumer.vscode-eslint"
+vscode "eamodio.gitlens"
+vscode "esbenp.prettier-vscode"
+vscode "github.vscode-github-actions"
+vscode "github.vscode-pull-request-github"
+vscode "gruntfuggly.todo-tree"
+vscode "kickbacksai.kickbacks-ai"
+vscode "miguelsolorio.symbols"
+vscode "mikestead.dotenv"
+vscode "ms-azuretools.vscode-containers"
+vscode "ms-azuretools.vscode-docker"
+vscode "prisma.prisma"
+vscode "streetsidesoftware.code-spell-checker"
+vscode "usernamehw.errorlens"
+vscode "wallabyjs.console-ninja"
+vscode "yoavbls.pretty-ts-errors"

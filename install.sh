@@ -19,36 +19,49 @@ fi
 echo "→ brew bundle"
 brew bundle install --file="$DOTFILES/brew/Brewfile"
 
-# 3. Oh My Zsh
-if [ ! -d "$HOME/.oh-my-zsh" ]; then
-  echo "→ Installing Oh My Zsh"
-  RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-fi
-
-# 4. Stow packages (symlink dotfiles into $HOME)
+# 3. Stow packages (symlink dotfiles into $HOME)
+# Pure Zsh + Starship — no Oh My Zsh, no prompt framework.
 echo "→ stow"
 cd "$DOTFILES"
-mkdir -p "$HOME/.ssh"
+mkdir -p "$HOME/.ssh" "$HOME/.config"
 stow -t "$HOME" shell git ssh
 
-# 5. Default shell
+# 4. Default shell
 if [ "$SHELL" != "$(command -v zsh)" ]; then
   echo "→ Setting zsh as default shell"
   chsh -s "$(command -v zsh)"
 fi
 
+# 5. macOS system defaults (monochrome / minimal)
+echo "→ macOS defaults"
+"$DOTFILES/bin/macos-setup.sh"
+
+# 6. launchd agents (weekly Downloads cleanup)
+echo "→ launchd agents"
+mkdir -p "$HOME/Library/LaunchAgents"
+ln -sf "$DOTFILES/launchd/com.rz.clean-downloads.plist" "$HOME/Library/LaunchAgents/com.rz.clean-downloads.plist"
+launchctl bootout "gui/$(id -u)/com.rz.clean-downloads" 2>/dev/null || true
+launchctl bootstrap "gui/$(id -u)" "$HOME/Library/LaunchAgents/com.rz.clean-downloads.plist"
+
 cat <<'EOF'
 
 ✔ Dotfiles installed.
 
-Next steps (manual):
-  1. Generate SSH keys:
-       ssh-keygen -t ed25519 -C "github@rzlabs.me"        -f ~/.ssh/personal
-       ssh-keygen -t ed25519 -C "fabio.fernandes@hypnotic.pt" -f ~/.ssh/work
-  2. Add ~/.ssh/personal.pub to personal GitHub
-  3. Add ~/.ssh/work.pub to work GitHub + work GitLab
-  4. Load keys into keychain:
-       ssh-add --apple-use-keychain ~/.ssh/personal ~/.ssh/work
-  5. Restart terminal.
+Next steps (manual — full reference in DEVENV.md):
+  1. Generate the three SSH identity keys:
+       ssh-keygen -t ed25519 -C "Fábio Fernandes <obraxray@gmail.com>"        -f ~/.ssh/personal
+       ssh-keygen -t ed25519 -C "Fábio Fernandes <fabio.fernandes@hypnotic.pt>" -f ~/.ssh/work
+       ssh-keygen -t ed25519 -C "Fábio Fernandes <obraxray@gmail.com>"        -f ~/.ssh/obra
+  2. Add each *.pub to the matching host:
+       personal → GitHub (RzLabs)
+       work     → GitHub + GitLab (Hypnotic)
+       obra     → ObraXRAY GitHub
+  3. Load keys into the keychain:
+       ssh-add --apple-use-keychain ~/.ssh/personal ~/.ssh/work ~/.ssh/obra
+  4. Add the three signing pubkeys to GitHub/GitLab for "Verified" badges.
+  5. System Settings → Appearance: Dark · Graphite accent · Graphite highlight ·
+     Tinted icons · solid #000000 wallpaper (not scriptable on Tahoe).
+  6. Grant Rectangle Accessibility permission and launch it.
+  7. Restart terminal.
 
 EOF
