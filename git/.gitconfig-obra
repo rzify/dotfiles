@@ -1,6 +1,5 @@
 [user]
-	# ObraXRAY brand identity (matches what the repos already used).
-	name = ObraXRAY
+	# name inherits "Fábio Fernandes" from base ~/.gitconfig; only email differs.
 	email = obraxray@gmail.com
 	signingkey = ~/.ssh/obra.pub
 [core]
