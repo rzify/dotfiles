@@ -70,6 +70,10 @@ alias cat='bat'
 alias f='fd'
 alias reload='exec zsh'
 
+# ── Aliases · project navigation ──────────────────────────────────
+alias obra='cd ~/Development/obraxray/app'
+alias hypnotic='cd ~/Development/hypnotic'
+
 # ── Aliases · git (ported from the OMZ git plugin) ────────────────
 alias g='git'
 alias gst='git status -sb'
@@ -114,9 +118,88 @@ alias dcd='docker compose down'
 alias dps='docker ps'
 alias dlog='docker logs -f'
 
+# ── Claude Code · profiles (mirrors the git identity split) ───────
+# No includeIf equivalent exists in Claude Code, so we switch CLAUDE_CONFIG_DIR
+# before launching. Each config dir carries its own login (macOS Keychain
+# entries are namespaced per config-dir path), settings.json and history.
+#
+#   ~/.claude-obraxray  ObraXRAY + personal (default, everywhere else)
+#   ~/.claude-work      Hypnotic            (~/Development/hypnotic)
+#   ~/.claude           shared config only (commands/hooks/plugins are
+#                       symlinked from here); not used as a login profile
+#
+# An explicit CLAUDE_CONFIG_DIR in the environment always wins; otherwise the
+# profile is picked from $PWD. The explain/review/fix aliases expand to
+# `claude`, so they inherit this routing; `cc` asks every time.
+_claude_profile_for_pwd() {
+  case "$PWD/" in
+    "$HOME/Development/hypnotic/"*) print -r -- "$HOME/.claude-work" ;;
+    *)                                print -r -- "$HOME/.claude-obraxray" ;;
+  esac
+}
+
+claude() {
+  local cfg="${CLAUDE_CONFIG_DIR:-$(_claude_profile_for_pwd)}"
+  CLAUDE_CONFIG_DIR="$cfg" command claude "$@"
+}
+
+# `cc` asks which account to use; Enter keeps the $PWD default.
+cc() {
+  local cfg="$CLAUDE_CONFIG_DIR"
+  if [[ -z "$cfg" ]]; then
+    cfg="$(_claude_profile_for_pwd)"
+    if [[ -t 0 && -t 1 ]]; then
+      local def key
+      [[ "$cfg" == "$HOME/.claude-work" ]] && def="h" || def="o"
+      print -n "Conta Claude — [o] ObraXRAY/Pessoal  [h] Hypnotic  (Enter = $def): "
+      read -k 1 key
+      [[ "$key" != $'\n' ]] && print
+      case "${key:l}" in
+        o) cfg="$HOME/.claude-obraxray" ;;
+        h) cfg="$HOME/.claude-work" ;;
+        $'\n'|"") ;;
+        *) print -u2 "Opção inválida: $key"; return 1 ;;
+      esac
+    fi
+  fi
+  CLAUDE_CONFIG_DIR="$cfg" command claude --dangerously-skip-permissions "$@"
+}
+
+# Force a profile regardless of $PWD. Same flags as `cc`.
+cchyp() {
+  CLAUDE_CONFIG_DIR="$HOME/.claude-work" \
+    command claude --dangerously-skip-permissions "$@"
+}
+ccobra() {
+  CLAUDE_CONFIG_DIR="$HOME/.claude-obraxray" \
+    command claude --dangerously-skip-permissions "$@"
+}
+
+
+# Who is actually logged into each profile (reads the live credential).
+ccwho() {
+  local d out email org
+  for d in "$HOME/.claude-work" "$HOME/.claude-obraxray"; do
+    out=$(CLAUDE_CONFIG_DIR="$d" command claude auth status 2>/dev/null)
+    email=$(print -r -- "$out" | sed -n 's/.*"email": *"\([^"]*\)".*/\1/p')
+    org=$(print -r -- "$out" | sed -n 's/.*"orgName": *"\([^"]*\)".*/\1/p')
+    printf '%-20s %s\n' "${d##*/}" "${email:-not logged in}${org:+  [$org]}"
+  done
+}
+
+# Log a single profile in/out without touching the others.
+ccauth() {
+  local p="$1"; shift
+  case "$p" in
+    hyp|work)  p="$HOME/.claude-work" ;;
+    obra)      p="$HOME/.claude-obraxray" ;;
+    *) print -u2 "usage: ccauth {hyp|obra} {login|logout|status} [flags]"; return 2 ;;
+  esac
+  CLAUDE_CONFIG_DIR="$p" command claude auth "$@"
+}
+
 # ── Aliases · Claude / dev tooling (yours) ────────────────────────
-alias ai-styles="~/Development/personal/dev-tools/install-ai-style.sh"
-alias cc="claude --dangerously-skip-permissions"
+alias ai-styles="~/Development/rzlabs/dev-tools/install-ai-style.sh"
 alias explain="claude --print 'explica este código'"
 alias review="claude --print 'review este código, foca em bugs e segurança'"
 alias fix="claude --print 'corrige os erros neste código'"
@@ -200,3 +283,6 @@ EOF
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 typeset -A ZSH_HIGHLIGHT_STYLES
 ZSH_HIGHLIGHT_STYLES[comment]='fg=#535353'
+export TANDEM_TOKEN="$(security find-generic-password -a "$USER" -s tandem-token -w)"
+export TANDEM_TOKEN="$(security find-generic-password -a "$USER" -s tandem-token -w)"
+[ -f ~/Development/rzlabs/mac/areas.zsh ] && source ~/Development/rzlabs/mac/areas.zsh
