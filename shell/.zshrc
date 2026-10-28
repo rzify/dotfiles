@@ -50,6 +50,9 @@ eval "$(direnv hook zsh)"
 
 # ── Lazy nvm (saves ~200ms; loads on first node/npm/npx/nvm call) ──
 export NVM_DIR="$HOME/.nvm"
+_nvm_bins=($NVM_DIR/versions/node/*/bin(Nn))
+(( $#_nvm_bins )) && path=($_nvm_bins[-1] $path)
+unset _nvm_bins
 _load_nvm() {
   unset -f nvm node npm npx 2>/dev/null
   source "/opt/homebrew/opt/nvm/nvm.sh"

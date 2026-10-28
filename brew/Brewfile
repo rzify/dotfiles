@@ -23,13 +23,13 @@ brew "ripgrep"               # rg — explicit leaf; don't let autoremove eat it
 brew "starship"              # prompt
 brew "stow"                  # dotfiles symlink manager
 brew "zoxide"                # smarter cd
+brew "mas"                   # Mac App Store CLI (installs need sudo since mas 7)
 brew "zsh-autosuggestions"
 brew "zsh-completions"
 brew "zsh-history-substring-search"
 brew "zsh-syntax-highlighting"
 
 # ── Languages / runtimes / package managers ────────────────────────────────────
-brew "node"                  # required by vercel-cli; nvm's active version still wins on PATH
 brew "nvm"
 brew "oven-sh/bun/bun"       # explicit tap path — dump skips it under tap-trust
 brew "pnpm"
@@ -41,19 +41,12 @@ brew "php"
 brew "composer"
 
 # ── Databases ───────────────────────────────────────────────────────────────────
-brew "postgresql@16", link: true
 brew "libpq"
-brew "mysql"                 # installed but NOT auto-started (no restart_service flag — intentional)
 
 # ── Dev tooling / cloud ───────────────────────────────────────────────────────────
-brew "docker"
-brew "docker-compose"
-brew "vercel-cli"
-brew "wp-cli"
+cask "vercel"                # Vercel CLI (native binary, no node needed)
 brew "stripe/stripe-cli/stripe"
 brew "supabase/tap/supabase"
-brew "nmap"
-brew "sshpass"
 brew "copilot"               # AWS Copilot (ECS/Fargate)
 brew "anomalyco/tap/opencode"
 
@@ -64,16 +57,16 @@ brew "librsvg"
 brew "poppler"
 
 # ── GUI apps (cask) ──────────────────────────────────────────────────────────────
-cask "wezterm"               # terminal
+cask "ghostty"               # terminal (primary — config in ghostty/ stow pkg)
+cask "iterm2"                # fallback terminal; provides cc-status used by Claude Code hooks
 cask "visual-studio-code"    # editor
+cask "helium-browser"        # Chromium daily browser (Arc successor candidate)
 cask "rectangle"             # window snapping (chosen over AeroSpace tiling)
 cask "raycast"               # launcher / clipboard (Cmd+Shift+M) / window / AI
 cask "karabiner-elements"    # keyboard remap
 cask "alt-tab"               # window switcher
-cask "bruno"                 # API client (replaced Postman)
-cask "tableplus"             # DB GUI (replaced pgAdmin)
 cask "claude-code"
-cask "docker-desktop"
+cask "orbstack"              # Docker runtime (replaced Docker Desktop)
 cask "bitwarden"             # password manager (you also run 1Password)
 cask "1password"
 cask "obsidian"              # personal KB
@@ -83,23 +76,20 @@ cask "fork"                  # git GUI
 cask "google-chrome"         # DevTools browser
 cask "slack"
 cask "whatsapp"
-cask "anydesk"               # remote desktop
-cask "ngrok"                 # public tunnels
 cask "tailscale-app"         # mesh VPN
-cask "local"                 # WordPress local dev
 cask "pictogram"             # custom app-icon tool
 cask "ytmdesktop-youtube-music"
+
+# ── Mac App Store ────────────────────────────────────────────────────────────────
+mas "Hand Mirror", id: 1502839586   # menu-bar camera check before calls
 
 # ── Fonts ─────────────────────────────────────────────────────────────────────────
 cask "font-geist-mono"
 cask "font-jetbrains-mono-nerd-font"
 
 # ── Recommended, not yet installed — uncomment to adopt ─────────────────────────────
-# cask "jordanbaird-ice"     # free menu-bar manager (declutter)
-# cask "stats"               # monochrome menu-bar system monitor
 # cask "zen-browser"         # minimal Firefox-based daily driver
 # brew "btop"                # terminal system monitor
-# brew "mas"                 # Mac App Store CLI (for the `up` upgrade alias)
 # brew "pgcli"               # postgres REPL w/ autocomplete
 # brew "mycli"               # mysql REPL w/ autocomplete
 # brew "llm"                 # scriptable LLM in the terminal (simonw)
