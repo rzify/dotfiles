@@ -1,7 +1,7 @@
 # Vesper — shared design language
 
-One palette + one font, applied across **WezTerm · VSCode · Fork · Arc**.
-WezTerm is the reference implementation; everything else matches it.
+One palette + one font, applied across **Ghostty · VSCode · Fork · Helium**.
+Ghostty is the reference implementation; everything else matches it.
 
 ## Tokens (single source of truth)
 
@@ -25,10 +25,10 @@ ligatures on, Geist Mono fallback.
 
 | App     | Mechanism                          | Match    |
 |---------|------------------------------------|----------|
-| WezTerm | `wezterm/.wezterm.lua` (stow)      | reference |
+| Ghostty | `ghostty/.config/ghostty/config` (stow) | reference |
 | VSCode  | `vscode/.../settings.json` (stow) — `Vesper` theme + chrome lock | near-pixel |
 | Fork    | `defaults` (dark) + manual font/diff | as-far-as-Fork-allows |
-| Arc     | in-app Space color (manual)        | manual    |
+| Helium  | `helium/noir-theme/` (load unpacked) | manual    |
 
 ---
 
@@ -48,26 +48,48 @@ Then in **Fork → Settings**:
    - Fork has no background/accent override — this is the ceiling. Good enough
      for cohesion, not a pixel match.
 
-## Arc — manual steps
-
-Arc themes live per-Space, set in-app (not file-configurable).
-
-1. Open the Space switcher → **Edit Theme** on the active Space.
-2. Choose a **solid color**, paste hex **`#101010`** (or the darkest swatch).
-3. Keep it solid — no gradient — for the flat Vesper look.
-4. Optional accent: set the Space tint toward amber `#ffc799` if you want the
-   accent echoed in Arc's chrome.
-5. Settings → minimize chrome: thin/auto-hiding toolbar, hide unused buttons.
-6. Repeat per Space you use (theme is per-Space).
-
----
-
 ## Reproduce on a fresh machine
 
 ```sh
 cd ~/Development/personal/dotfiles
-stow wezterm vscode
+stow ghostty vscode
 defaults write com.DanPristupov.Fork theme -string dark
 # VSCode: install the one theme — code --install-extension raunofreiberg.vesper
-# Then do the Fork + Arc manual steps above.
+# Then do the Fork manual steps above and load the Helium theme below.
 ```
+
+---
+
+## Noir — wallpaper-derived override
+
+Sampled from `assets/wallpaper-noir.png` (Kai Notebook NOIR Desktop). Strictly
+grayscale; replaces the Vesper amber/mint/red accents in Starship, VSCode and
+iTerm2.
+
+| Token | Hex       | Role                          |
+|-------|-----------|-------------------------------|
+| `bg`  | `#090909` | base background               |
+| `alt` | `#0e0e0e` | raised surfaces               |
+| `sel` | `#242424` | selection, borders, hover     |
+| `dim` | `#4e4e4e` | comments, inactive            |
+| `mid` | `#6a6a6a` | ANSI mid step (interpolated)  |
+| `gray`| `#8b8b8b` | secondary text, strings       |
+| `fg`  | `#aaaaaa` | primary text                  |
+| `hi`  | `#afafaf` | cursor, keywords, active tab  |
+
+Applied via: `~/.config/starship.toml` (`noir` palette), `iterm2/DynamicProfiles/vesper.json`
+(live-reloads, no plist edit), `ghostty/.config/ghostty/config` (primary terminal, stow), VSCode `workbench.colorCustomizations` +
+`editor.tokenColorCustomizations` under `[Vesper]`, `helium/noir-theme/` (Chrome theme manifest).
+
+### Helium — load once per profile
+
+Not stowed; Chromium loads it from the repo path, so edits apply on reload.
+
+1. `helium://extensions` → enable **Developer mode** → **Load unpacked** →
+   `~/Development/personal/dotfiles/helium/noir-theme`.
+2. Repeat in every profile (theme is per-profile). It replaces the
+   "Customize" grey user color.
+3. After editing `manifest.json`: hit **Reload** on the extension card.
+
+Mapping: frame/inactive tabs `bg`, toolbar + active tab `alt`, omnibox inset
+`bg`, active tab text `hi`, inactive tab text `dim`, icons/bookmarks `gray`.

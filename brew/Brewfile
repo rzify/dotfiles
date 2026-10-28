@@ -78,10 +78,6 @@ cask "slack"
 cask "whatsapp"
 cask "tailscale-app"         # mesh VPN
 cask "pictogram"             # custom app-icon tool
-cask "ytmdesktop-youtube-music"
-
-# ── Mac App Store ────────────────────────────────────────────────────────────────
-mas "Hand Mirror", id: 1502839586   # menu-bar camera check before calls
 
 # ── Fonts ─────────────────────────────────────────────────────────────────────────
 cask "font-geist-mono"
