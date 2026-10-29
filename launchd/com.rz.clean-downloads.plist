@@ -6,7 +6,7 @@
   <string>com.rz.clean-downloads</string>
   <key>ProgramArguments</key>
   <array>
-    <string>/Users/rz/Development/personal/dotfiles/bin/clean-downloads.sh</string>
+    <string>/Users/rz/Development/rzlabs/dotfiles/bin/clean-downloads.sh</string>
   </array>
   <key>StartCalendarInterval</key>
   <dict>

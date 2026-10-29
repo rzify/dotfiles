@@ -1,0 +1,93 @@
+# ╭───────────────────────────────────────────────────────────╮
+# │  Starship · Sunset · minimal two-line                     │
+# │  Line 1: path · git · (runtime/duration right-aligned)      │
+# │  Line 2: ❯ prompt (pink / red ✘ on error)                 │
+# ╰───────────────────────────────────────────────────────────╯
+palette = "sunset"
+add_newline = true
+command_timeout = 800
+
+format = """
+$directory$git_branch$git_status$fill$nodejs$cmd_duration
+$character"""
+
+[palettes.sunset]
+fg     = "#ffe8c7"
+amber  = "#ffc799"
+coral  = "#ff8a5c"
+pink   = "#ff6f91"
+purple = "#d79be6"
+sun    = "#ffe0a3"
+star   = "#c6dcff"
+red    = "#f0645f"
+gray   = "#b07fc0"
+dim    = "#7a4a8e"
+
+[directory]
+style = "amber bold"
+format = "[$path]($style)[$read_only]($read_only_style) "
+truncation_length = 3
+truncation_symbol = "…/"
+read_only = " "
+read_only_style = "dim"
+
+[directory.substitutions]
+"~/Development" = "~/dev"
+
+[git_branch]
+symbol = " "
+style = "star"
+format = "[$symbol$branch]($style) "
+
+[git_status]
+style = "coral"
+format = "[$all_status$ahead_behind]($style)"
+conflicted = "= "
+ahead = "⇡${count} "
+behind = "⇣${count} "
+diverged = "⇕⇡${ahead_count}⇣${behind_count} "
+untracked = "? "
+stashed = "≡ "
+modified = "! "
+staged = "+ "
+renamed = "» "
+deleted = "✘ "
+
+[fill]
+symbol = " "
+
+# Runtime versions: dim, right-aligned, only when relevant. Low noise.
+[nodejs]
+symbol = " "
+style = "sun"
+format = "[$symbol($version)]($style) "
+detect_files = ["package.json", ".nvmrc"]
+detect_folders = ["node_modules"]
+
+[cmd_duration]
+min_time = 2000
+style = "purple"
+format = "[ $duration]($style)"
+
+[character]
+success_symbol = "[❯](pink bold)"
+error_symbol = "[✘](red bold)"
+vimcmd_symbol = "[❮](purple)"
+
+# Everything else off — keep the line quiet.
+[package]
+disabled = true
+[python]
+disabled = true
+[golang]
+disabled = true
+[rust]
+disabled = true
+[php]
+disabled = true
+[docker_context]
+disabled = true
+[aws]
+disabled = true
+[gcloud]
+disabled = true

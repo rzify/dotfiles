@@ -1,10 +1,8 @@
 {
   // ── Workbench ──────────────────────────────────────────────────────────────
   "workbench.sideBar.location": "right",
-  "workbench.activityBar.location": "hidden",
-  "workbench.colorTheme": "Vesper",
   "workbench.preferredDarkColorTheme": "Vesper",
-  "workbench.preferredLightColorTheme": "Default Light Modern",
+  "workbench.preferredLightColorTheme": "Light Modern",
   "workbench.iconTheme": "symbols",
   "workbench.productIconTheme": "Default",
   "workbench.tree.indent": 10,
@@ -179,65 +177,83 @@
     "**/.git/**": true
   },
   "console-ninja.featureSet": "Community",
-
-  // ── Vesper chrome lock ────────────────────────────────────────────────────
-  // Pulls workbench chrome onto the shared Vesper tokens so VSCode matches
-  // WezTerm exactly. Palette reference: dotfiles/assets/vesper-palette.md
-  // (amber #ffc799 = the single accent; #101010 = base; status bar stays
-  //  neutral so the Kickbacks extension can't repaint it purple.)
   "workbench.colorCustomizations": {
     "[Vesper]": {
-      // Base surfaces
-      "editor.background": "#101010",
-      "sideBar.background": "#101010",
-      "sideBar.foreground": "#e0e0e0",
-      "sideBar.border": "#1f1f1f",
-      "sideBarSectionHeader.background": "#101010",
-      "sideBarSectionHeader.border": "#1f1f1f",
-      "activityBar.background": "#101010",
-      "activityBar.border": "#1f1f1f",
-      "panel.background": "#101010",
-      "panel.border": "#1f1f1f",
-      "terminal.background": "#101010",
-
-      // Title bar
-      "titleBar.activeBackground": "#101010",
-      "titleBar.activeForeground": "#e0e0e0",
-      "titleBar.inactiveBackground": "#101010",
-      "titleBar.inactiveForeground": "#8b8b8b",
-      "titleBar.border": "#1f1f1f",
-
-      // Tabs — amber marks the active tab, everything else recedes
-      "editorGroupHeader.tabsBackground": "#101010",
-      "editorGroupHeader.border": "#1f1f1f",
-      "tab.activeBackground": "#161616",
+      "foreground": "#ffe8c7",
+      "focusBorder": "#ff6f91",
+      "editor.background": "#2a1652",
+      "editor.foreground": "#ffe8c7",
+      "editorCursor.foreground": "#ffc799",
+      "editor.selectionBackground": "#552f8c",
+      "editor.lineHighlightBackground": "#3a2068",
+      "editorLineNumber.foreground": "#7a4a8e",
+      "editorLineNumber.activeForeground": "#ffc799",
+      "editorGroup.border": "#552f8c",
+      "editorWidget.background": "#3a2068",
+      "sideBar.background": "#1e0f3d",
+      "sideBar.border": "#552f8c",
+      "sideBarSectionHeader.background": "#1e0f3d",
+      "activityBar.background": "#1e0f3d",
+      "activityBar.foreground": "#ffc799",
+      "activityBar.inactiveForeground": "#7a4a8e",
+      "activityBarBadge.background": "#ff6f91",
+      "panel.background": "#2a1652",
+      "panel.border": "#552f8c",
+      "terminal.background": "#2a1652",
+      "titleBar.activeBackground": "#1e0f3d",
+      "titleBar.inactiveBackground": "#1e0f3d",
+      "editorGroupHeader.tabsBackground": "#1e0f3d",
+      "tab.activeBackground": "#2a1652",
       "tab.activeForeground": "#ffc799",
-      "tab.activeBorderTop": "#ffc799",
-      "tab.activeBorder": "#161616",
-      "tab.inactiveBackground": "#101010",
-      "tab.inactiveForeground": "#535353",
-      "tab.hoverBackground": "#161616",
-      "tab.border": "#101010",
-
-      // The single accent — focus rings, active selection
-      "focusBorder": "#ffc799",
-      "list.activeSelectionBackground": "#2a2a2a",
-      "list.activeSelectionForeground": "#ffffff",
-      "list.inactiveSelectionBackground": "#1f1f1f",
-      "list.hoverBackground": "#161616",
+      "tab.activeBorderTop": "#ff6f91",
+      "tab.inactiveBackground": "#1e0f3d",
+      "tab.inactiveForeground": "#b07fc0",
+      "list.activeSelectionBackground": "#552f8c",
+      "list.hoverBackground": "#3a2068",
       "list.highlightForeground": "#ffc799",
-
-      // Status bar — neutral, never purple
-      "statusBar.background": "#101010",
-      "statusBar.noFolderBackground": "#101010",
-      "statusBar.debuggingBackground": "#101010",
-      "statusBar.foreground": "#8b8b8b",
-      "statusBar.border": "#1f1f1f",
-      "statusBarItem.remoteBackground": "#101010",
-      "statusBarItem.remoteForeground": "#8b8b8b",
-      "statusBarItem.hoverBackground": "#2a2a2a",
-      "statusBarItem.prominentBackground": "#101010",
-      "statusBarItem.prominentHoverBackground": "#2a2a2a"
+      "input.background": "#3a2068",
+      "button.background": "#ff6f91",
+      "button.foreground": "#2a1652",
+      "badge.background": "#ff6f91",
+      "badge.foreground": "#2a1652",
+      "statusBar.background": "#1e0f3d",
+      "statusBar.foreground": "#b07fc0",
+      "statusBarItem.remoteBackground": "#ff6f91",
+      "statusBarItem.remoteForeground": "#2a1652",
+      "gitDecoration.modifiedResourceForeground": "#ff8a5c",
+      "gitDecoration.untrackedResourceForeground": "#ffe0a3",
+      "gitDecoration.addedResourceForeground": "#ffe0a3",
+      "gitDecoration.deletedResourceForeground": "#f0645f",
+      "terminal.ansiBlack": "#3a2068",
+      "terminal.ansiRed": "#f0645f",
+      "terminal.ansiGreen": "#ffe0a3",
+      "terminal.ansiYellow": "#ffc799",
+      "terminal.ansiBlue": "#c6dcff",
+      "terminal.ansiMagenta": "#ff6f91",
+      "terminal.ansiCyan": "#ffcad8",
+      "terminal.ansiWhite": "#ffe8c7",
+      "terminal.ansiBrightBlack": "#7a4a8e",
+      "terminal.ansiBrightRed": "#ff8a7a",
+      "terminal.ansiBrightGreen": "#fff1c4",
+      "terminal.ansiBrightYellow": "#ffdcbf",
+      "terminal.ansiBrightBlue": "#e0ecff",
+      "terminal.ansiBrightMagenta": "#ff9db5",
+      "terminal.ansiBrightCyan": "#ffe1ea",
+      "terminal.ansiBrightWhite": "#ffffff"
     }
-  }
+  },
+  "editor.tokenColorCustomizations": {
+    "[Vesper]": {
+      "comments": "#b07fc0",
+      "strings": "#ffe0a3",
+      "keywords": "#ff6f91",
+      "numbers": "#c6dcff",
+      "functions": "#d79be6",
+      "types": "#ffc799",
+      "variables": "#ffe8c7"
+    }
+  },
+  "workbench.colorTheme": "Vesper",
+  "claudeCode.preferredLocation": "sidebar",
+  "terminal.integrated.initialHint": false
 }

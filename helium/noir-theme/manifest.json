@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "Sunset",
+  "version": "3.0.0",
+  "description": "Sunset chrome matching Ghostty, VS Code and the pixel sunset wallpaper.",
+  "theme": {
+    "colors": {
+      "frame": [30, 15, 61],
+      "frame_inactive": [30, 15, 61],
+      "frame_incognito": [10, 7, 20],
+      "frame_incognito_inactive": [10, 7, 20],
+      "background_tab": [30, 15, 61],
+      "background_tab_inactive": [30, 15, 61],
+      "background_tab_incognito": [10, 7, 20],
+      "toolbar": [58, 32, 104],
+      "tab_text": [255, 199, 153],
+      "tab_background_text": [176, 127, 192],
+      "tab_background_text_inactive": [122, 74, 142],
+      "tab_background_text_incognito": [122, 74, 142],
+      "toolbar_text": [255, 232, 199],
+      "toolbar_button_icon": [255, 111, 145],
+      "bookmark_text": [255, 232, 199],
+      "omnibox_background": [42, 22, 82],
+      "omnibox_text": [255, 232, 199],
+      "ntp_background": [42, 22, 82],
+      "ntp_text": [255, 232, 199],
+      "ntp_link": [255, 199, 153],
+      "ntp_header": [58, 32, 104]
+    },
+    "properties": {
+      "ntp_background_alignment": "center"
+    }
+  }
+}
