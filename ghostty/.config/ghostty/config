@@ -1,36 +1,36 @@
-# Ghostty · Sunset — mirrors iterm2/DynamicProfiles/vesper.json (tokens in assets/sunset-palette.md)
+# Ghostty · ObraXRAY — tokens in assets/obraxray-palette.md
 # Reload: Cmd+Shift+,   Validate: ghostty +validate-config
 
 font-family = JetBrainsMono Nerd Font Mono
 font-family = Geist Mono
 font-size = 14
 
-background = #2a1652
-foreground = #ffe8c7
-bold-color = #ffffff
-cursor-color = #ffc799
-cursor-text = #2a1652
-selection-background = #552f8c
-selection-foreground = #ffffff
-background-opacity = 0.8
+background = #0d2d25
+foreground = #dce9df
+bold-color = #f5f7f2
+cursor-color = #a9cbb6
+cursor-text = #0d2d25
+selection-background = #286b55
+selection-foreground = #f5f7f2
+background-opacity = 0.85
 background-blur = 30
 
-palette = 0=#3a2068
-palette = 1=#f0645f
-palette = 2=#ffe0a3
-palette = 3=#ffc799
-palette = 4=#c6dcff
-palette = 5=#ff6f91
-palette = 6=#ffcad8
-palette = 7=#ffe8c7
-palette = 8=#7a4a8e
-palette = 9=#ff8a7a
-palette = 10=#fff1c4
-palette = 11=#ffdcbf
-palette = 12=#e0ecff
-palette = 13=#ff9db5
-palette = 14=#ffe1ea
-palette = 15=#ffffff
+palette = 0=#173f35
+palette = 1=#e0705c
+palette = 2=#7fd1a8
+palette = 3=#e3c58a
+palette = 4=#8fbfd0
+palette = 5=#e8a68f
+palette = 6=#a9cbb6
+palette = 7=#dce9df
+palette = 8=#4a6e60
+palette = 9=#f0907e
+palette = 10=#a9e6c6
+palette = 11=#f0dab0
+palette = 12=#b7d8e4
+palette = 13=#f2c2b2
+palette = 14=#c9e0d1
+palette = 15=#f5f7f2
 
 window-theme = dark
 macos-titlebar-style = tabs

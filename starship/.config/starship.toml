@@ -1,9 +1,9 @@
 # ╭───────────────────────────────────────────────────────────╮
-# │  Starship · Sunset · minimal two-line                     │
+# │  Starship · ObraXRAY · minimal two-line                   │
 # │  Line 1: path · git · (runtime/duration right-aligned)      │
-# │  Line 2: ❯ prompt (pink / red ✘ on error)                 │
+# │  Line 2: ❯ prompt (mint / red ✘ on error)                 │
 # ╰───────────────────────────────────────────────────────────╯
-palette = "sunset"
+palette = "obraxray"
 add_newline = true
 command_timeout = 800
 
@@ -11,20 +11,19 @@ format = """
 $directory$git_branch$git_status$fill$nodejs$cmd_duration
 $character"""
 
-[palettes.sunset]
-fg     = "#ffe8c7"
-amber  = "#ffc799"
-coral  = "#ff8a5c"
-pink   = "#ff6f91"
-purple = "#d79be6"
-sun    = "#ffe0a3"
-star   = "#c6dcff"
-red    = "#f0645f"
-gray   = "#b07fc0"
-dim    = "#7a4a8e"
+[palettes.obraxray]
+fg    = "#dce9df"
+light = "#a9cbb6"
+mint  = "#7fd1a8"
+sand  = "#e3c58a"
+clay  = "#e8a68f"
+sky   = "#8fbfd0"
+red   = "#e0705c"
+gray  = "#6e9b83"
+dim   = "#4a6e60"
 
 [directory]
-style = "amber bold"
+style = "light bold"
 format = "[$path]($style)[$read_only]($read_only_style) "
 truncation_length = 3
 truncation_symbol = "…/"
@@ -36,11 +35,11 @@ read_only_style = "dim"
 
 [git_branch]
 symbol = " "
-style = "star"
+style = "sky"
 format = "[$symbol$branch]($style) "
 
 [git_status]
-style = "coral"
+style = "sand"
 format = "[$all_status$ahead_behind]($style)"
 conflicted = "= "
 ahead = "⇡${count} "
@@ -59,20 +58,20 @@ symbol = " "
 # Runtime versions: dim, right-aligned, only when relevant. Low noise.
 [nodejs]
 symbol = " "
-style = "sun"
+style = "mint"
 format = "[$symbol($version)]($style) "
 detect_files = ["package.json", ".nvmrc"]
 detect_folders = ["node_modules"]
 
 [cmd_duration]
 min_time = 2000
-style = "purple"
+style = "clay"
 format = "[ $duration]($style)"
 
 [character]
-success_symbol = "[❯](pink bold)"
+success_symbol = "[❯](mint bold)"
 error_symbol = "[✘](red bold)"
-vimcmd_symbol = "[❮](purple)"
+vimcmd_symbol = "[❮](sky)"
 
 # Everything else off — keep the line quiet.
 [package]
