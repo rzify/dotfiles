@@ -1,0 +1,6 @@
+.env*
+*.key
+*.pem
+user_data.json
+.claude.json*
+credentials*

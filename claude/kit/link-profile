@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+KIT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+AGENTS="$HOME/.agents/skills"
+
+[ $# -ge 1 ] || { echo "usage: link-profile <profile-dir>..." >&2; exit 1; }
+
+link() {
+  local src="$1" dst="$2"
+  if [ -e "$dst" ] && [ ! -L "$dst" ]; then
+    echo "  ✗ ${dst/#$HOME/~} (real file or folder; left alone)"
+    return
+  fi
+  ln -sfn "$src" "$dst"
+  echo "  ✓ ${dst/#$HOME/~}"
+}
+
+for profile in "$@"; do
+  profile="${profile%/}"
+  [ -d "$profile" ] || { echo "no such profile: $profile" >&2; continue; }
+  echo "→ ${profile/#$HOME/~}"
+  link "$KIT/CLAUDE.md" "$profile/CLAUDE.md"
+  link "$KIT/hooks" "$profile/hooks"
+  mkdir -p "$profile/skills"
+  for dir in "$KIT"/skills/*/; do
+    link "${dir%/}" "$profile/skills/$(basename "$dir")"
+  done
+  while IFS= read -r name; do
+    [ -n "$name" ] && [ -d "$AGENTS/$name" ] && link "$AGENTS/$name" "$profile/skills/$name"
+  done < "$KIT/skills.external"
+done
