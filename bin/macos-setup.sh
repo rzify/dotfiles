@@ -7,10 +7,12 @@ set -euo pipefail
 
 echo "→ Applying macOS system defaults (monochrome / minimal)"
 
-# ── Appearance ──────────────────────────────────────────────────────────────
-# Note: Dark mode, Graphite accent/highlight, and Tinted icons are set in
-# System Settings → Appearance (no reliable defaults key on Tahoe). This script
-# covers everything that IS scriptable.
+# ── Appearance (Noir: black & white) ────────────────────────────────────────
+defaults write NSGlobalDomain AppleInterfaceStyle -string Dark
+defaults write NSGlobalDomain AppleAccentColor -int -1
+defaults write NSGlobalDomain AppleHighlightColor -string "0.847059 0.847059 0.862745 Graphite"
+defaults write NSGlobalDomain AppleIconAppearanceTheme -string TintedDark
+defaults write com.DanPristupov.Fork theme -string dark
 
 # ── Dock ──────────────────────────────────────────────────────────────────────
 defaults write com.apple.dock orientation -string left
@@ -20,11 +22,31 @@ defaults write com.apple.dock autohide -bool true
 defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0.15
 defaults write com.apple.dock show-recents -bool false
-defaults write com.apple.dock static-only -bool true
+defaults write com.apple.dock static-only -bool false
 defaults write com.apple.dock mru-spaces -bool false   # don't reorder spaces
+defaults write com.apple.WindowManager StandardHideWidgets -bool false
+
+DOCK_APPS=(
+  "/Applications/Helium.app"
+  "/Applications/Ghostty.app"
+  "/Applications/Visual Studio Code.app"
+  "/Applications/Fork.app"
+  "/Applications/Claude.app"
+  "/Applications/Notion.app"
+  "/Applications/Obsidian.app"
+  "/Applications/Slack.app"
+  "/Applications/WhatsApp.app"
+)
+defaults write com.apple.dock persistent-apps -array
+for app in "${DOCK_APPS[@]}"; do
+  [ -d "$app" ] || continue
+  defaults write com.apple.dock persistent-apps -array-add \
+    "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>$app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
+done
 
 # ── Desktop / Finder ───────────────────────────────────────────────────────────
-defaults write com.apple.finder CreateDesktop -bool false          # hide all desktop icons
+defaults write com.apple.finder CreateDesktop -bool true
+defaults write com.apple.WindowManager StandardHideDesktopIcons -bool true
 defaults write com.apple.finder _FXSortFoldersFirst -bool true
 defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv" # list view default
 defaults write com.apple.finder ShowPathbar -bool true
@@ -54,8 +76,9 @@ defaults write com.apple.screencapture disable-shadow -bool true
 
 # ── Misc QoL ────────────────────────────────────────────────────────────────────
 defaults write NSGlobalDomain NSWindowResizeTime -float 0.001       # instant window resize
-defaults write com.apple.universalaccess reduceMotion -bool true     # snappier, less animation
 defaults write NSGlobalDomain AppleShowScrollBars -string "WhenScrolling"
+# Note: Reduce Motion lives under com.apple.universalaccess on Tahoe and is
+# SIP-protected — toggle manually in System Settings → Accessibility → Display.
 
 killall Dock Finder SystemUIServer 2>/dev/null || true
 
@@ -63,11 +86,9 @@ cat <<'EOF'
 
 ✔ macOS defaults applied.
 
-Manual (System Settings → Appearance — not scriptable on Tahoe):
-  • Appearance:           Dark
-  • Accent color:         Graphite
-  • Highlight color:      Graphite      ← kills blue selection highlight
-  • Icon & widget style:  Tinted (neutral graphite)   ← near-monochrome app icons
-  • Wallpaper:            solid #000000 (Wallpaper → Color → custom)
+Manual (not scriptable):
+  • Wallpaper: assets/wallpaper-black.png (or Wallpaper → Colors → Black)
+  • Log out and back in so every app picks up the Graphite accent
+  • See assets/noir-palette.md for per-app steps (Helium, Raycast, Slack, Fork)
 
 EOF

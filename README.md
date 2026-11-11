@@ -27,7 +27,7 @@ cd ~/Development/personal/dotfiles
 ./install.sh
 ```
 
-The script installs Homebrew → brew packages → Oh My Zsh → runs `stow` to symlink everything into `$HOME` → sets zsh as default shell. Then it prints manual steps for SSH keys.
+The script installs Homebrew → brew packages → runs `stow` to symlink everything into `$HOME` → sets zsh as default shell. Then it prints manual steps for SSH keys.
 
 ## Updating
 

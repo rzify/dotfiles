@@ -8,10 +8,8 @@ tap "stripe/stripe-cli"
 tap "supabase/tap"
 
 # ── CLI core ──────────────────────────────────────────────────────────────────
-brew "atuin"                 # shell history, searchable
 brew "bat"                   # cat with syntax highlighting
 brew "coreutils"
-brew "direnv"                # per-dir env via .envrc
 brew "eza"                   # modern ls
 brew "fd"                    # modern find
 brew "fzf"                   # fuzzy finder
@@ -24,13 +22,15 @@ brew "starship"              # prompt
 brew "stow"                  # dotfiles symlink manager
 brew "zoxide"                # smarter cd
 brew "mas"                   # Mac App Store CLI (installs need sudo since mas 7)
+brew "fzf-tab"                 # fzf-powered Tab completion
+brew "zsh-autopair"
 brew "zsh-autosuggestions"
 brew "zsh-completions"
 brew "zsh-history-substring-search"
 brew "zsh-syntax-highlighting"
 
 # ── Languages / runtimes / package managers ────────────────────────────────────
-brew "nvm"
+brew "fnm"                     # Node version manager (reads .nvmrc)
 brew "oven-sh/bun/bun"       # explicit tap path — dump skips it under tap-trust
 brew "pnpm"
 brew "yarn"
@@ -39,6 +39,7 @@ brew "pipx"
 brew "uv"                    # fast Python installer
 brew "php"
 brew "composer"
+brew "cocoapods"             # iOS native deps (Expo prebuild)
 
 # ── Databases ───────────────────────────────────────────────────────────────────
 brew "libpq"
@@ -57,7 +58,7 @@ brew "librsvg"
 brew "poppler"
 
 # ── GUI apps (cask) ──────────────────────────────────────────────────────────────
-cask "ghostty"               # terminal (primary — config in ghostty/ stow pkg)
+cask "ghostty"               # terminal (primary — stock defaults, no config)
 cask "iterm2"                # fallback terminal; provides cc-status used by Claude Code hooks
 cask "visual-studio-code"    # editor
 cask "helium-browser"        # Chromium daily browser (Arc successor candidate)

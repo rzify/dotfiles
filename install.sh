@@ -24,7 +24,19 @@ brew bundle install --file="$DOTFILES/brew/Brewfile"
 echo "→ stow"
 cd "$DOTFILES"
 mkdir -p "$HOME/.ssh" "$HOME/.config"
-stow -t "$HOME" shell git ssh
+stow -t "$HOME" shell git ssh starship
+
+if [ ! -d "$HOME/.local/share/zsh-defer" ]; then
+  echo "→ zsh-defer"
+  git clone --depth 1 https://github.com/romkatv/zsh-defer.git "$HOME/.local/share/zsh-defer"
+fi
+
+for profile in "$HOME/.claude" "$HOME/.claude-obraxray" "$HOME/.claude-work"; do
+  mkdir -p "$profile/themes"
+  ln -sfn "$DOTFILES/claude/themes/noir.json" "$profile/themes/noir.json"
+done
+"$DOTFILES/bin/claude-mods-sync"
+"$DOTFILES/bin/agent-skills-sync"
 
 # 4. Default shell
 if [ "$SHELL" != "$(command -v zsh)" ]; then

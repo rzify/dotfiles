@@ -1,79 +1,78 @@
-# ╭───────────────────────────────────────────────────────────╮
-# │  Starship · ObraXRAY · minimal two-line                   │
-# │  Line 1: path · git · (runtime/duration right-aligned)      │
-# │  Line 2: ❯ prompt (mint / red ✘ on error)                 │
-# ╰───────────────────────────────────────────────────────────╯
-palette = "obraxray"
+palette = "noir"
 add_newline = true
 command_timeout = 800
 
 format = """
-$directory$git_branch$git_status$fill$nodejs$cmd_duration
+[░▒▓](light)\
+$os\
+[](bg:raised fg:light)\
+$directory\
+[](fg:raised bg:line)\
+$git_branch\
+[](fg:line)\
+$fill\
+$nodejs\
+$cmd_duration
 $character"""
 
-[palettes.obraxray]
-fg    = "#dce9df"
-light = "#a9cbb6"
-mint  = "#7fd1a8"
-sand  = "#e3c58a"
-clay  = "#e8a68f"
-sky   = "#8fbfd0"
-red   = "#e0705c"
-gray  = "#6e9b83"
-dim   = "#4a6e60"
+[palettes.noir]
+white  = "#ffffff"
+fg     = "#e6e6e6"
+light  = "#b3b3b3"
+gray   = "#888888"
+dim    = "#555555"
+raised = "#333333"
+line   = "#1a1a1a"
+black  = "#000000"
+red    = "#e5534b"
+
+[os]
+disabled = false
+style = "bg:light fg:black"
+format = "[$symbol]($style)"
+
+[os.symbols]
+Macos = " "
 
 [directory]
-style = "light bold"
-format = "[$path]($style)[$read_only]($read_only_style) "
+style = "bg:raised fg:white bold"
+format = "[ $path ]($style)[$read_only]($read_only_style)"
 truncation_length = 3
 truncation_symbol = "…/"
-read_only = " "
-read_only_style = "dim"
+read_only = " "
+read_only_style = "bg:raised fg:gray"
 
 [directory.substitutions]
 "~/Development" = "~/dev"
 
 [git_branch]
-symbol = " "
-style = "sky"
-format = "[$symbol$branch]($style) "
+symbol = " "
+style = "bg:line fg:light"
+format = "[ $symbol$branch ]($style)"
 
 [git_status]
-style = "sand"
-format = "[$all_status$ahead_behind]($style)"
-conflicted = "= "
-ahead = "⇡${count} "
-behind = "⇣${count} "
-diverged = "⇕⇡${ahead_count}⇣${behind_count} "
-untracked = "? "
-stashed = "≡ "
-modified = "! "
-staged = "+ "
-renamed = "» "
-deleted = "✘ "
+disabled = true
 
 [fill]
 symbol = " "
 
-# Runtime versions: dim, right-aligned, only when relevant. Low noise.
 [nodejs]
-symbol = " "
-style = "mint"
-format = "[$symbol($version)]($style) "
+symbol = " "
+style = "dim"
+format = "[$symbol($version) ]($style)"
 detect_files = ["package.json", ".nvmrc"]
 detect_folders = ["node_modules"]
 
 [cmd_duration]
 min_time = 2000
-style = "clay"
-format = "[ $duration]($style)"
+style = "gray"
+format = "[ $duration]($style)"
 
 [character]
-success_symbol = "[❯](mint bold)"
-error_symbol = "[✘](red bold)"
-vimcmd_symbol = "[❮](sky)"
+success_symbol = "[❯](white bold)"
+error_symbol = "[❯](red bold)"
+vimcmd_symbol = "[❮](gray)"
 
-# Everything else off — keep the line quiet.
 [package]
 disabled = true
 [python]

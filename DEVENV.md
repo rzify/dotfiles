@@ -129,7 +129,10 @@ so every config change is version-controlled automatically.
 dotfiles/
 ├── git/    .gitconfig .gitconfig-{personal,work,obra} allowed_signers
 ├── ssh/.ssh/config
-├── shell/  .zshrc
+├── shell/  .zshrc .zprofile
+├── starship/.config/starship.toml
+├── claude/themes/noir.json   # linked into every Claude profile
+├── agent-skills/  handoff brain-dump reflect   # bin/agent-skills-sync
 ├── brew/   Brewfile
 └── install.sh   # symlinks + brew bundle on a fresh machine
 ```
@@ -144,7 +147,21 @@ New machine: `git clone … && ./install.sh && brew bundle` → identical setup.
 - **Secrets:** never in dotfiles. `.env` per repo, git-ignored; commit
   `.env.example`. Machine-wide secrets in macOS Keychain. SSH passphrases in
   Keychain (`UseKeychain yes`).
-- **Node:** lazy-loaded `nvm` (see `.zshrc`); per-repo `.nvmrc`.
+- **Node:** `fnm` (switches version on `cd`, reads `.nvmrc`); real binaries on PATH, no lazy-load shims.
+- **Claude Code:** per-directory profile via the `bin/claude` wrapper that sets
+  `CLAUDE_CONFIG_DIR` by `$PWD` or git common dir (no native `includeIf` exists).
+  `~/.claude-work` (Hypnotic) inside `~/Development/hypnotic`;
+  `~/.claude-obraxray` (ObraXRAY, also used for personal) everywhere else.
+  `~/.claude` holds the shared commands/hooks/plugins (symlinked into both
+  profiles) and is not a login profile. `cc` = `claude --dangerously-skip-permissions`.
+  UI: `custom:noir` theme, `bin/claude-statusline` (model · ctx · 5h · 7d · branch;
+  also forwards to Orca's status hook), Ghostty notifications, focus view.
+- **Agent skills:** `agent-skills/` holds plain `SKILL.md` versions of the
+  handoff, brain-dump and reflect mods for agents without mods. `bin/agent-skills-sync`
+  symlinks them into `~/.agents/skills` (Codex and others) and `~/.cursor/skills`;
+  `--claude-code` adds the Claude Code profiles (off by default, the mods already
+  cover them); `--zip` builds `~/Downloads/agent-skills/*.zip` for claude.ai
+  (Settings → Capabilities → Skills, re-upload after each edit).
 - **Containers:** per-project `docker-compose.yml`; never share a global stack
   across contexts.
 

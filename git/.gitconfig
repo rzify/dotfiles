@@ -8,10 +8,13 @@
 # ── Identity isolation by directory ───────────────────────────────
 # Whichever tree the repo lives in decides email, signing key, and
 # the SSH key used to push. Impossible to cross identities.
-[includeIf "gitdir:~/Development/personal/"]
+[includeIf "gitdir:~/Development/rzlabs/"]
 	path = ~/.gitconfig-personal
 
-[includeIf "gitdir:~/Development/enterprise/"]
+[includeIf "gitdir:~/Documents/"]
+	path = ~/.gitconfig-personal
+
+[includeIf "gitdir:~/Development/hypnotic/"]
 	path = ~/.gitconfig-work
 
 [includeIf "gitdir:~/Development/obraxray/"]
@@ -46,3 +49,10 @@
 	colorMoved = default
 [rerere]
 	enabled = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[includeIf "gitdir:~/Development/keybind-studios/"]
+	path = ~/.gitconfig-personal
