@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+real=/opt/homebrew/bin/gh
+hypnotic="$HOME/Development/hypnotic/"
+repo="$(git rev-parse --path-format=absolute --git-common-dir 2>/dev/null || true)"
+
+case "$PWD/|$repo/" in
+  "$hypnotic"* | *"|$hypnotic"*) GH_TOKEN="$("$real" auth token --hostname github.com --user fabiomiguelmfernandes)" exec "$real" "$@" ;;
+  *) exec "$real" "$@" ;;
+esac

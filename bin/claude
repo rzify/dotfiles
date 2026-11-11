@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+hypnotic="$HOME/Development/hypnotic/"
+repo="$(git rev-parse --path-format=absolute --git-common-dir 2>/dev/null || true)"
+
+keychain() { security find-generic-password -a "$USER" -s "$1" -w 2>/dev/null || true; }
+
+case "$PWD/|$repo/" in
+  "$hypnotic"* | *"|$hypnotic"*)
+    export CLAUDE_CONFIG_DIR="$HOME/.claude-work"
+    composio_key="$(keychain composio-hypnotic)" ;;
+  *)
+    export CLAUDE_CONFIG_DIR="$HOME/.claude-obraxray"
+    composio_key="$(keychain composio-personal)" ;;
+esac
+
+if [ -n "$composio_key" ]; then
+  export COMPOSIO_USER_API_KEY="$composio_key"
+else
+  unset COMPOSIO_USER_API_KEY
+fi
+unset composio_key
+export COMPOSIO_CACHE_DIR="$CLAUDE_CONFIG_DIR/composio-cache"
+
+exec "$HOME/.local/bin/claude" "$@"
