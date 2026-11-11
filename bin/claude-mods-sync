@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+DOTFILES="$HOME/Development/rzlabs/dotfiles"
+RZLABS="$HOME/Development/rzlabs"
+CLAUDE_BIN="$HOME/.local/bin/claude"
+
+PROFILES=(
+  "$HOME/.claude-obraxray"
+  "$HOME/.claude-work"
+  "$HOME/.claude"
+)
+shopt -s nullglob
+PROFILES+=("$HOME/Library/Application Support/orca/claude-profiles/"*/home)
+shopt -u nullglob
+
+MARKETPLACES=(
+  "$HOME/.claude/rz-mods"
+  "$RZLABS/claude-code-playground/claude-code/mods"
+  "$RZLABS/claude-code-filetree"
+)
+
+MODS=(
+  brain-dump@rz-mods
+  handoff@rz-mods
+  helper-desk@rz-mods
+  reflect@rz-mods
+  chat-inventory@rz-mods
+  mod-index@rz-mods
+  blast-radius@claude-code-playground-mods
+  filetree@claude-code-filetree
+)
+
+FILETREE_CONFIG='{"work":"off","jump":"tree","start":"on","open":"code -g {path}","edit":"code -g {path}:{line}","palette":"fg=#e6e6e6 bg=#000000 accent=#ffffff muted=#555555 urgent=#e5534b selection=#333333 hover=#0f0f0f jump=#b3b3b3 added=#d9d9d9 modified=#b3b3b3 renamed=#8c8c8c add=#d9d9d9 del=#e5534b"}'
+
+BRAIN_DUMP_CONFIG='{"min_words":"25","ask":"off"}'
+OPEN_AT_START='{"open_at_start":"on"}'
+
+[ -x "$CLAUDE_BIN" ] || { echo "claude not found at $CLAUDE_BIN" >&2; exit 1; }
+
+mkdir -p "$HOME/.claude"
+ln -sfn "$DOTFILES/claude/mods" "$HOME/.claude/rz-mods"
+[ -d "$RZLABS/claude-code-playground" ] || git clone --depth 1 https://github.com/anthropics/claude-code-playground.git "$RZLABS/claude-code-playground"
+[ -d "$RZLABS/claude-code-filetree" ] || git clone --depth 1 https://github.com/data-goblin/claude-code-filetree.git "$RZLABS/claude-code-filetree"
+
+for profile in "${PROFILES[@]}"; do
+  [ -d "$profile" ] || continue
+  label="${profile##*/}"
+  [ "$label" = home ] && label="orca:$(basename "$(dirname "$profile")" | cut -c1-8)"
+  echo "→ $label"
+  export CLAUDE_CONFIG_DIR="$profile"
+  enabled=$(/usr/bin/python3 -c 'import json,sys
+try:
+    s = json.load(open(sys.argv[1]))
+except Exception:
+    s = {}
+print("\n".join(k for k, v in s.get("enabledPlugins", {}).items() if v is True))' "$profile/settings.json")
+  for marketplace in "${MARKETPLACES[@]}"; do
+    [ -d "$marketplace" ] && "$CLAUDE_BIN" plugin marketplace add "$marketplace" >/dev/null 2>&1 || true
+  done
+  for mod in "${MODS[@]}"; do
+    if grep -qxF "$mod" <<<"$enabled"; then
+      echo "  ✓ $mod"
+    elif "$CLAUDE_BIN" plugin install "$mod" --scope user >/dev/null 2>&1 || "$CLAUDE_BIN" plugin enable "$mod" --scope user >/dev/null 2>&1; then
+      echo "  + $mod"
+    else
+      echo "  ✗ $mod (install failed)"
+    fi
+  done
+  printf '%s' "$FILETREE_CONFIG" | "$CLAUDE_BIN" plugin configure filetree@claude-code-filetree --values-stdin >/dev/null 2>&1 || true
+  printf '%s' "$BRAIN_DUMP_CONFIG" | "$CLAUDE_BIN" plugin configure brain-dump@rz-mods --values-stdin >/dev/null 2>&1 || true
+  for pane_mod in chat-inventory@rz-mods helper-desk@rz-mods; do
+    printf '%s' "$OPEN_AT_START" | "$CLAUDE_BIN" plugin configure "$pane_mod" --values-stdin >/dev/null 2>&1 || true
+  done
+  unset CLAUDE_CONFIG_DIR
+  [ "$profile" = "$HOME/.claude" ] && continue
+  /usr/bin/python3 - "$HOME/.claude/settings.json" "$profile/settings.json" <<'PY'
+import json, sys
+keys = ["theme", "statusLine", "preferredNotifChannel", "viewMode", "maxProseWidth", "showTurnDuration"]
+source, target = sys.argv[1], sys.argv[2]
+with open(source) as f:
+    base = json.load(f)
+with open(target) as f:
+    settings = json.load(f)
+merged = {**settings, **{k: base[k] for k in keys if k in base}}
+if merged != settings:
+    with open(target, "w") as f:
+        json.dump(merged, f, indent=2, ensure_ascii=False)
+        f.write("\n")
+    print("  ~ UI settings")
+PY
+done

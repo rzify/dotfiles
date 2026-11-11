@@ -1,0 +1,9 @@
+{
+  "name": "mod-index",
+  "version": "0.1.0",
+  "description": "/mods opens a side pane with every mod enabled in this profile, when it runs and how to call it",
+  "author": {
+    "name": "rz"
+  },
+  "types": "./types/index.d.ts"
+}

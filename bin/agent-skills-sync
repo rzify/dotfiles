@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+DOTFILES="$HOME/Development/rzlabs/dotfiles"
+SOURCE="$DOTFILES/agent-skills"
+ZIP_DIR="$HOME/Downloads/agent-skills"
+
+TARGETS=(
+  "$HOME/.agents/skills"
+  "$HOME/.cursor/skills"
+)
+
+usage() {
+  cat <<'EOF'
+Usage: agent-skills-sync [--claude-code] [--zip]
+
+Links every skill in dotfiles/agent-skills into each agent's skills folder.
+  default        ~/.agents/skills (Codex and other agents) and ~/.cursor/skills
+  --claude-code  also the Claude Code profiles (skipped by default: the rz-mods
+                 already own /handoff, /reflect and brain-dump shaping there)
+  --zip          build one .zip per skill in ~/Downloads/agent-skills for claude.ai
+EOF
+}
+
+with_claude_code=false
+with_zip=false
+for arg in "$@"; do
+  case "$arg" in
+    --claude-code) with_claude_code=true ;;
+    --zip) with_zip=true ;;
+    -h|--help) usage; exit 0 ;;
+    *) usage >&2; exit 1 ;;
+  esac
+done
+
+if $with_claude_code; then
+  TARGETS+=("$HOME/.claude/skills" "$HOME/.claude-obraxray/skills" "$HOME/.claude-work/skills")
+fi
+
+shopt -s nullglob
+skills=("$SOURCE"/*/SKILL.md)
+shopt -u nullglob
+[ ${#skills[@]} -gt 0 ] || { echo "no skills in $SOURCE" >&2; exit 1; }
+
+for target in "${TARGETS[@]}"; do
+  echo "→ ${target/#$HOME/~}"
+  mkdir -p "$target"
+  for skill_md in "${skills[@]}"; do
+    dir="$(dirname "$skill_md")"
+    name="$(basename "$dir")"
+    link="$target/$name"
+    if [ -e "$link" ] && [ ! -L "$link" ]; then
+      echo "  ✗ $name (a real folder is already there; left alone)"
+      continue
+    fi
+    ln -sfn "$dir" "$link"
+    echo "  ✓ $name"
+  done
+done
+
+if $with_zip; then
+  echo "→ ${ZIP_DIR/#$HOME/~}"
+  mkdir -p "$ZIP_DIR"
+  for skill_md in "${skills[@]}"; do
+    dir="$(dirname "$skill_md")"
+    name="$(basename "$dir")"
+    rm -f "$ZIP_DIR/$name.zip"
+    (cd "$SOURCE" && zip -qr "$ZIP_DIR/$name.zip" "$name" -x '*.DS_Store')
+    echo "  ✓ $name.zip"
+  done
+fi

@@ -1,0 +1,32 @@
+#!/bin/sh
+payload=$(cat)
+orca="$HOME/.orca/agent-hooks/claude-statusline.sh"
+[ -x "$orca" ] && printf '%s' "$payload" | /bin/sh "$orca" >/dev/null 2>&1
+
+printf '%s' "$payload" | /usr/bin/jq -r '
+  def pct(x): if x == null then null else (x | floor) end;
+  [ .model.display_name // "",
+    (pct(.context_window.used_percentage) // ""),
+    (pct(.rate_limits.five_hour.used_percentage) // ""),
+    (pct(.rate_limits.seven_day.used_percentage) // ""),
+    .workspace.current_dir // "" ] | @tsv' | {
+  IFS="$(printf '\t')" read -r model ctx five week dir
+  gray='\033[38;2;136;136;136m'
+  dim='\033[38;2;85;85;85m'
+  red='\033[38;2;229;83;75m'
+  reset='\033[0m'
+  seg() {
+    [ -z "$2" ] && return
+    color=$gray
+    [ "$2" -ge "$3" ] && color=$red
+    printf "${dim} · ${reset}${color}%s %s%%${reset}" "$1" "$2"
+  }
+  branch=
+  [ -n "$dir" ] && branch=$(git -C "$dir" branch --show-current 2>/dev/null)
+  printf "${gray}%s${reset}" "$model"
+  seg ctx "$ctx" 80
+  seg 5h "$five" 90
+  seg 7d "$week" 90
+  [ -n "$branch" ] && printf "${dim} · ${reset}${gray}%s${reset}" "$branch"
+  printf '\n'
+}

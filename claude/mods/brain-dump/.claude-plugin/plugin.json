@@ -1,0 +1,28 @@
+{
+  "name": "brain-dump",
+  "version": "0.2.0",
+  "description": "Offers to shape a long, loose prompt into a four-part brief (the job, the why, the guardrails, done means), asking up to three questions about real gaps first",
+  "author": {
+    "name": "Ben AI",
+    "url": "https://www.benai.co"
+  },
+  "types": "./types/index.d.ts",
+  "userConfig": {
+    "min_words": {
+      "type": "string",
+      "title": "Minimum words",
+      "description": "Prompts with at least this many words are shaped. Default 120.",
+      "default": "120"
+    },
+    "ask": {
+      "type": "string",
+      "title": "Ask first",
+      "description": "on: offer Shape it / Send as is before shaping. off: shape every qualifying prompt straight away.",
+      "default": "on",
+      "options": [
+        "on",
+        "off"
+      ]
+    }
+  }
+}
