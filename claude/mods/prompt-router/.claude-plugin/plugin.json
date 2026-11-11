@@ -1,0 +1,17 @@
+{
+  "name": "prompt-router",
+  "version": "0.1.1",
+  "description": "Reads each prompt before it runs and sends conversation to the Claude app chat and non-code work to Cowork, prefilled in the right account",
+  "author": {
+    "name": "rz"
+  },
+  "userConfig": {
+    "mode": {
+      "type": "string",
+      "title": "Mode",
+      "description": "auto: open the app straight away. ask: offer the move first.",
+      "default": "auto",
+      "options": ["auto", "ask"]
+    }
+  }
+}

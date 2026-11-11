@@ -1,0 +1,55 @@
+ObjC.import('Foundation')
+ObjC.import('AppKit')
+
+const APP = '/Applications/Claude.app'
+const BIN = `${APP}/Contents/MacOS/Claude`
+
+function sh(cmd) {
+  const app = Application.currentApplication()
+  app.includeStandardAdditions = true
+  return app.doShellScript(cmd)
+}
+
+function findPid(dataDir) {
+  const lines = sh('ps -axo pid=,command=').split('\r')
+  for (const line of lines) {
+    const m = line.trim().match(/^(\d+)\s+(.*)$/)
+    if (!m || !m[2].startsWith(BIN)) continue
+    const args = m[2].slice(BIN.length)
+    const dir = (args.match(/--user-data-dir=(.+?)(?=\s--|$)/) || [])[1] || ''
+    if (dir.trim() === dataDir) return parseInt(m[1], 10)
+  }
+  return 0
+}
+
+function launch(dataDir) {
+  const q = s => `'${s.replace(/'/g, `'\\''`)}'`
+  sh(dataDir ? `open -n -a ${q(APP)} --args --user-data-dir=${q(dataDir)}` : `open -n -a ${q(APP)}`)
+}
+
+function sendUrl(pid, url) {
+  const target = $.NSAppleEventDescriptor.descriptorWithProcessIdentifier(pid)
+  const ev = $.NSAppleEventDescriptor.appleEventWithEventClassEventIDTargetDescriptorReturnIDTransactionID(0x4755524c, 0x4755524c, target, -1, 0)
+  ev.setParamDescriptorForKeyword($.NSAppleEventDescriptor.descriptorWithString(url), 0x2d2d2d2d)
+  const reply = ev.sendEventWithOptionsTimeoutError(0x1, 10, Ref())
+  const app = $.NSRunningApplication.runningApplicationWithProcessIdentifier(pid)
+  if (!app.isNil()) app.activateWithOptions(1 << 1)
+  return !reply.isNil()
+}
+
+function run(argv) {
+  const dataDir = argv[0] || ''
+  const url = argv[1]
+  let pid = findPid(dataDir)
+  if (!pid) {
+    launch(dataDir)
+    for (let i = 0; i < 40 && !pid; i++) {
+      delay(0.5)
+      pid = findPid(dataDir)
+    }
+    if (!pid) throw new Error('Claude did not start')
+    delay(6)
+  }
+  if (!sendUrl(pid, url)) throw new Error('Claude did not take the link')
+  return `ok ${pid}`
+}

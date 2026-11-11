@@ -36,6 +36,11 @@
       "name": "chat-inventory",
       "source": "./chat-inventory",
       "description": "A side pane listing the to-do list, connectors, context files and skills this chat used"
+    },
+    {
+      "name": "prompt-router",
+      "source": "./prompt-router",
+      "description": "Reads each prompt before it runs and moves conversation to the Claude app chat and non-code work to Cowork, prefilled in the right account"
     }
   ]
 }

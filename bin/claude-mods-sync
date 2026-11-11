@@ -27,6 +27,7 @@ MODS=(
   reflect@rz-mods
   chat-inventory@rz-mods
   mod-index@rz-mods
+  prompt-router@rz-mods
   blast-radius@claude-code-playground-mods
   filetree@claude-code-filetree
 )
