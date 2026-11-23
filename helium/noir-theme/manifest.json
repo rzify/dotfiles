@@ -1,19 +1,19 @@
 {
   "manifest_version": 3,
-  "name": "Noir",
-  "version": "5.0.0",
-  "description": "Black and white browser chrome matching VS Code and Ghostty.",
+  "name": "Noir Light",
+  "version": "6.0.0",
+  "description": "White browser chrome with black text.",
   "theme": {
     "colors": {
       "frame": [
-        0,
-        0,
-        0
+        242,
+        242,
+        242
       ],
       "frame_inactive": [
-        0,
-        0,
-        0
+        242,
+        242,
+        242
       ],
       "frame_incognito": [
         0,
@@ -26,14 +26,14 @@
         0
       ],
       "background_tab": [
-        0,
-        0,
-        0
+        242,
+        242,
+        242
       ],
       "background_tab_inactive": [
-        0,
-        0,
-        0
+        242,
+        242,
+        242
       ],
       "background_tab_incognito": [
         0,
@@ -41,74 +41,74 @@
         0
       ],
       "toolbar": [
-        20,
-        20,
-        20
-      ],
-      "tab_text": [
         255,
         255,
         255
       ],
+      "tab_text": [
+        0,
+        0,
+        0
+      ],
       "tab_background_text": [
+        85,
+        85,
+        85
+      ],
+      "tab_background_text_inactive": [
         136,
         136,
         136
       ],
-      "tab_background_text_inactive": [
-        85,
-        85,
-        85
-      ],
       "tab_background_text_incognito": [
-        85,
-        85,
-        85
+        200,
+        200,
+        200
       ],
       "toolbar_text": [
-        230,
-        230,
-        230
+        0,
+        0,
+        0
       ],
       "toolbar_button_icon": [
-        230,
-        230,
-        230
+        0,
+        0,
+        0
       ],
       "bookmark_text": [
-        230,
-        230,
-        230
+        0,
+        0,
+        0
       ],
       "omnibox_background": [
-        0,
-        0,
-        0
+        242,
+        242,
+        242
       ],
       "omnibox_text": [
-        230,
-        230,
-        230
-      ],
-      "ntp_background": [
         0,
         0,
         0
       ],
-      "ntp_text": [
-        230,
-        230,
-        230
-      ],
-      "ntp_link": [
+      "ntp_background": [
         255,
         255,
         255
       ],
+      "ntp_text": [
+        0,
+        0,
+        0
+      ],
+      "ntp_link": [
+        0,
+        0,
+        0
+      ],
       "ntp_header": [
-        20,
-        20,
-        20
+        242,
+        242,
+        242
       ]
     },
     "properties": {

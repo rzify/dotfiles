@@ -3,9 +3,9 @@ add_newline = true
 command_timeout = 800
 
 format = """
-[░▒▓](light)\
+[░▒▓](white)\
 $os\
-[](bg:raised fg:light)\
+[](bg:raised fg:white)\
 $directory\
 [](fg:raised bg:line)\
 $git_branch\
@@ -28,7 +28,7 @@ red    = "#e5534b"
 
 [os]
 disabled = false
-style = "bg:light fg:black"
+style = "bg:white fg:black"
 format = "[$symbol]($style)"
 
 [os.symbols]

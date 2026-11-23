@@ -75,3 +75,7 @@ Don't suggest the replaced tools (Postman, pgAdmin, AeroSpace, Oh My Zsh, Maccy,
 
 
 - **Home Assistant SSH (this machine):** always connect via the `homeassistant` alias from `~/.ssh/config` (→ 192.168.1.138:22222, root, key `~/.ssh/ha_homeassistant`). Plain `ssh -p 22222 root@192.168.1.138` fails with "Permission denied (publickey)" because the global `IdentitiesOnly yes` pins keys per host alias.
+
+## Rules from corrections
+
+- For tenant-scoped roles, expose the full product within scope; hide only confirmed sections and ask about unclear ones. (added 2026-11-12)

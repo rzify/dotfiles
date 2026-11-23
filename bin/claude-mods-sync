@@ -21,13 +21,11 @@ MARKETPLACES=(
 )
 
 MODS=(
-  brain-dump@rz-mods
   handoff@rz-mods
   helper-desk@rz-mods
   reflect@rz-mods
   chat-inventory@rz-mods
   mod-index@rz-mods
-  prompt-router@rz-mods
   blast-radius@claude-code-playground-mods
   filetree@claude-code-filetree
 )
@@ -60,7 +58,9 @@ print("\n".join(k for k, v in s.get("enabledPlugins", {}).items() if v is True))
     [ -d "$marketplace" ] && "$CLAUDE_BIN" plugin marketplace add "$marketplace" >/dev/null 2>&1 || true
   done
   for mod in "${MODS[@]}"; do
-    if grep -qxF "$mod" <<<"$enabled"; then
+    if [ "$profile" = "$HOME/.claude-obraxray" ] && [ "$mod" = brain-dump@rz-mods ]; then
+      echo "  – $mod (off here)"
+    elif grep -qxF "$mod" <<<"$enabled"; then
       echo "  ✓ $mod"
     elif "$CLAUDE_BIN" plugin install "$mod" --scope user >/dev/null 2>&1 || "$CLAUDE_BIN" plugin enable "$mod" --scope user >/dev/null 2>&1; then
       echo "  + $mod"

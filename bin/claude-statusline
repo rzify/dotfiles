@@ -9,10 +9,10 @@ printf '%s' "$payload" | /usr/bin/jq -r '
     (pct(.context_window.used_percentage) // ""),
     (pct(.rate_limits.five_hour.used_percentage) // ""),
     (pct(.rate_limits.seven_day.used_percentage) // ""),
-    .workspace.current_dir // "" ] | @tsv' | {
-  IFS="$(printf '\t')" read -r model ctx five week dir
-  gray='\033[38;2;136;136;136m'
-  dim='\033[38;2;85;85;85m'
+    .workspace.current_dir // "" ] | map(tostring) | join("\u001f")' | {
+  IFS="$(printf '\037')" read -r model ctx five week dir
+  gray='\033[38;2;230;230;230m'
+  dim='\033[38;2;136;136;136m'
   red='\033[38;2;229;83;75m'
   reset='\033[0m'
   seg() {

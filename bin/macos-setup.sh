@@ -7,12 +7,12 @@ set -euo pipefail
 
 echo "→ Applying macOS system defaults (monochrome / minimal)"
 
-# ── Appearance (Noir: black & white) ────────────────────────────────────────
-defaults write NSGlobalDomain AppleInterfaceStyle -string Dark
+# ── Appearance (Noir mixed: light system, black terminal and editor) ───────
+defaults delete NSGlobalDomain AppleInterfaceStyle 2>/dev/null || true
 defaults write NSGlobalDomain AppleAccentColor -int -1
 defaults write NSGlobalDomain AppleHighlightColor -string "0.847059 0.847059 0.862745 Graphite"
-defaults write NSGlobalDomain AppleIconAppearanceTheme -string TintedDark
-defaults write com.DanPristupov.Fork theme -string dark
+defaults write NSGlobalDomain AppleIconAppearanceTheme -string TintedLight
+defaults write com.DanPristupov.Fork theme -string light
 
 # ── Dock ──────────────────────────────────────────────────────────────────────
 defaults write com.apple.dock orientation -string left
@@ -87,7 +87,7 @@ cat <<'EOF'
 ✔ macOS defaults applied.
 
 Manual (not scriptable):
-  • Wallpaper: assets/wallpaper-black.png (or Wallpaper → Colors → Black)
+  • Wallpaper: assets/wallpaper-white.png (or Wallpaper → Colors → White)
   • Log out and back in so every app picks up the Graphite accent
   • See assets/noir-palette.md for per-app steps (Helium, Raycast, Slack, Fork)
 

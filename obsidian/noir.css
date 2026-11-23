@@ -51,3 +51,35 @@
   --graph-node: #e6e6e6;
   --graph-line: #333333;
 }
+
+.theme-light {
+  --background-primary: #ffffff;
+  --background-primary-alt: #f5f5f5;
+  --background-secondary: #fafafa;
+  --background-secondary-alt: #f0f0f0;
+  --background-modifier-border: #e0e0e0;
+  --background-modifier-hover: #f0f0f0;
+  --titlebar-background: #ffffff;
+  --titlebar-background-focused: #ffffff;
+  --tab-container-background: #fafafa;
+  --ribbon-background: #fafafa;
+  --text-normal: #000000;
+  --text-muted: #555555;
+  --text-faint: #888888;
+  --text-accent: #000000;
+  --text-accent-hover: #333333;
+  --text-on-accent: #ffffff;
+  --text-selection: #d9d9d9;
+  --text-error: #e5534b;
+  --interactive-accent: #000000;
+  --interactive-accent-hover: #333333;
+  --color-accent: #000000;
+  --caret-color: #000000;
+  --link-color: #000000;
+  --link-external-color: #333333;
+  --h1-color: #000000;
+  --bold-color: #000000;
+  --code-background: #f5f5f5;
+  --checkbox-color: #000000;
+  --checkbox-marker-color: #ffffff;
+}

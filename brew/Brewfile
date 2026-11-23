@@ -59,7 +59,6 @@ brew "poppler"
 
 # ── GUI apps (cask) ──────────────────────────────────────────────────────────────
 cask "ghostty"               # terminal (primary — stock defaults, no config)
-cask "iterm2"                # fallback terminal; provides cc-status used by Claude Code hooks
 cask "visual-studio-code"    # editor
 cask "helium-browser"        # Chromium daily browser (Arc successor candidate)
 cask "rectangle"             # window snapping (chosen over AeroSpace tiling)

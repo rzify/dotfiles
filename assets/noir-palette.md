@@ -1,6 +1,8 @@
 # Noir — shared design language
 
-Black backgrounds, white text, grays for hierarchy. The one color is red, used only for
+Mixed since 2026-11-22: the system and everyday apps run in **light** mode (white
+backgrounds, black text); the terminal, editor and Claude Code stay **black with
+white text**. Grays for hierarchy. The one color is red, used only for
 errors and deletions so they never get lost. Applied across
 **Ghostty · VS Code · Helium/Chrome · Obsidian · Raycast · iTerm2 · Slack · macOS**.
 
@@ -15,7 +17,7 @@ errors and deletions so they never get lost. Applied across
 | `dim`    | `#555555` | comments, line numbers, inactive tabs       |
 | `gray`   | `#888888` | muted text, status bar                      |
 | `light`  | `#b3b3b3` | secondary text, warnings, git modified      |
-| `fg`     | `#e6e6e6` | primary text                                |
+| `fg`     | `#ffffff` | primary text on black (was `#e6e6e6`)       |
 | `white`  | `#ffffff` | active, bold, keywords, buttons, cursor     |
 | `red`    | `#e5534b` | errors and deletions only                   |
 
@@ -41,20 +43,21 @@ so prompts and `ls` output still separate visually; only red stays red.
 
 | App      | Mechanism                                                                 |
 |----------|---------------------------------------------------------------------------|
-| macOS    | `bin/macos-setup.sh`: Dark, Graphite accent + highlight, Tinted icons     |
-| Wallpaper| `assets/wallpaper-black.png` (pure black)                                 |
+| macOS    | `bin/macos-setup.sh`: Light, Graphite accent + highlight, Tinted icons    |
+| Wallpaper| `assets/wallpaper-white.png` (pure white; black one kept)                 |
 | Ghostty  | `ghostty/.config/ghostty/config` (colors only, symlinked)                 |
 | VS Code  | `vscode/.../settings.json`: `Vesper` theme + Noir override                |
-| Helium   | `helium/noir-theme/` (load unpacked, hit Reload after edits)              |
+| Helium   | `helium/noir-theme/` = Noir Light (load unpacked, hit Reload after edits) |
 | Chrome   | same `helium/noir-theme/` (load unpacked)                                 |
-| Obsidian | `obsidian/noir.css` → vault `.obsidian/snippets/` (enabled)               |
-| Raycast  | `assets/raycast-noir-theme.url` (open once, import)                       |
-| iTerm2   | `iterm2/DynamicProfiles/vesper.json` (Noir colors, profile name kept)     |
-| Slack    | Preferences → Themes → Custom: `#000000,#333333,#FFFFFF,#E5534B`          |
-| Fork     | `defaults` theme dark; Fork exposes no color override                     |
-| Others   | Claude, Notion, WhatsApp, Figma follow the system Dark appearance         |
+| Obsidian | `obsidian/noir.css` (dark + light blocks; Appearance → Adapt to system)   |
+| Raycast  | `assets/raycast-noir-light-theme.url` (open once, import)                 |
+| Slack    | Preferences → Themes → Custom: `#FFFFFF,#E6E6E6,#000000,#E5534B`          |
+| Fork     | `defaults` theme light; Fork exposes no color override                    |
+| Others   | Claude, Notion, WhatsApp, Figma follow the system Light appearance        |
 
 ## Previous palettes
+
+- **Noir v2 all-dark** (2026-11-10 → 2026-11-22): black everywhere, `#e6e6e6` text.
 
 - **ObraXRAY** (2026-11-08 → 2026-11-10): Deep Forest `#0d2d25`, Mist text, Emerald accents.
 - **Sunset** (2026-10-29 → 2026-11-08): night purple `#2a1652` with amber/coral/pink accents.
